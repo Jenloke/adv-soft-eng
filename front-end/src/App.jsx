@@ -1,4 +1,5 @@
-import './App.css'
+// import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -8,7 +9,7 @@ import {
 import Error from './routes/Error-page.jsx'
 import Home from './routes/Home-page.jsx'
 import Form from './routes/Form-page.jsx'
-import Table from './routes/Table-page.jsx'
+import Equipment from './routes/Table-page.jsx';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/table',
-    element: <Table />,
+    element: <Equipment />,
   }
 ])
 
