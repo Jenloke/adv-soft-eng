@@ -1,37 +1,83 @@
 import Sidebar from "../components/Sidebar.jsx";
 import Searchbar from "../components/Searchbar.jsx";
 import { Card, Table } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 
 export default function Equipment() {
   //useEffect on equipmentList once backend is running
 
   const equipmentList = [
-    {itemNo: 1, propertyNo: "0046-23", category: "XITRIX", 
+    {
+      itemNo: 1, 
+      propertyNo: "0046-23", 
+      category: "XITRIX", 
       specification: 
-        {processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",motherboard:"XITRIX XPN-H610M2", hdd:"1TB + 250GB SSD",
-          memory: "16GB DDR4", videoCard:"NVIDIA GeForce GTX 1660 SUPER", display:"G24 24in 165Hz Curved XITRIX Monitor",
-          opticalDrive: "N/A", casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", mouse: "Xitrix® Ergonomic Design USB Keyboard", keyboard:"Xitrix® Ergonomic Design USB Mouse"
-      }, 
-      dateOfAcquisition: "09/02/2023", status:"FUNCTIONAL",location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
-      campus: "MAIN 2", inCharge: "Jaycee C. Aurelio"},
-      {itemNo: 2, propertyNo: "0046-23", category: "XITRIX", 
-        specification: 
-          {processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",motherboard:"XITRIX XPN-H610M2", hdd:"1TB + 250GB SSD",
-            memory: "16GB DDR4", videoCard:"NVIDIA GeForce GTX 1660 SUPER", display:"G24 24in 165Hz Curved XITRIX Monitor",
-            opticalDrive: "N/A", casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", mouse: "Xitrix® Ergonomic Design USB Keyboard", keyboard:"Xitrix® Ergonomic Design USB Mouse"
+        {
+          processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",
+          motherboard:"XITRIX XPN-H610M2", 
+          hdd:"1TB + 250GB SSD",
+          memory: "16GB DDR4", 
+          videoCard:"NVIDIA GeForce GTX 1660 SUPER", 
+          display:"G24 24in 165Hz Curved XITRIX Monitor",
+          opticalDrive: "N/A", 
+          casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", 
+          mouse: "Xitrix® Ergonomic Design USB Keyboard", 
+          keyboard:"Xitrix® Ergonomic Design USB Mouse"
         }, 
-        dateOfAcquisition: "09/02/2023", status:"FUNCTIONAL",location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
-        campus: "MAIN 2", inCharge: "Jaycee C. Aurelio"},
-        {itemNo: 3, propertyNo: "0046-23", category: "XITRIX", 
-          specification: 
-            {processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",motherboard:"XITRIX XPN-H610M2", hdd:"1TB + 250GB SSD",
-              memory: "16GB DDR4", videoCard:"NVIDIA GeForce GTX 1660 SUPER", display:"G24 24in 165Hz Curved XITRIX Monitor",
-              opticalDrive: "N/A", casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", mouse: "Xitrix® Ergonomic Design USB Keyboard", keyboard:"Xitrix® Ergonomic Design USB Mouse"
-          }, 
-          dateOfAcquisition: "09/02/2023", status:"FUNCTIONAL",location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
-          campus: "MAIN 2", inCharge: "Jaycee C. Aurelio"}
+      dateOfAcquisition: "09/02/2023", 
+      status:"FUNCTIONAL",
+      location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
+      campus: "MAIN 2", 
+      inCharge: "Jaycee C. Aurelio"
+    },
+    {
+      itemNo: 2, 
+      propertyNo: "0046-23", 
+      category: "XITRIX", 
+      specification: 
+        {
+          processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",
+          motherboard:"XITRIX XPN-H610M2", 
+          hdd:"1TB + 250GB SSD",
+          memory: "16GB DDR4", 
+          videoCard:"NVIDIA GeForce GTX 1660 SUPER", 
+          display:"G24 24in 165Hz Curved XITRIX Monitor",
+          opticalDrive: "N/A", 
+          casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", 
+          mouse: "Xitrix® Ergonomic Design USB Keyboard", 
+          keyboard:"Xitrix® Ergonomic Design USB Mouse"
+        }, 
+      dateOfAcquisition: "09/02/2023", 
+      status:"FUNCTIONAL",
+      location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
+      campus: "MAIN 2", 
+      inCharge: "Jaycee C. Aurelio"
+    },
+    {
+      itemNo: 3, 
+      propertyNo: "0046-23", 
+      category: "XITRIX", 
+      specification: 
+        {
+          processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",
+          motherboard:"XITRIX XPN-H610M2", 
+          hdd:"1TB + 250GB SSD",
+          memory: "16GB DDR4", 
+          videoCard:"NVIDIA GeForce GTX 1660 SUPER", 
+          display:"G24 24in 165Hz Curved XITRIX Monitor",
+          opticalDrive: "N/A", 
+          casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", 
+          mouse: "Xitrix® Ergonomic Design USB Keyboard", 
+          keyboard:"Xitrix® Ergonomic Design USB Mouse"
+        }, 
+      dateOfAcquisition: "09/02/2023", 
+      status:"FUNCTIONAL",
+      location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
+      campus: "MAIN 2", 
+      inCharge: "Jaycee C. Aurelio"
+    }
   ]
+
   return(
     <>
       <div style={{ display: 'flex', minHeight: '100vh'}}>
