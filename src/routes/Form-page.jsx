@@ -14,13 +14,13 @@ export default function Form() {
 
   const onSubmit = (form_inputs) => {
     console.log(form_inputs)
-    const { data, error } = supabase.auth.signUp(form_inputs)
-    if (!error) console.log(data, error)
+    // const { data, error } = supabase.auth.signUp(form_inputs)
+    // if (!error) console.log(data, error)
   }
     
   const signOut = () => {
-    const { error } = supabase.auth.signOut()
-    console.log(error)
+    // const { error } = supabase.auth.signOut()
+    // console.log(error)
   }
   
   // console.log(watch("email")) // watch input value by passing the name of it

@@ -10,6 +10,7 @@ import Error from './routes/Error-page.jsx'
 import Home from './routes/Home-page.jsx'
 import Form from './routes/Form-page.jsx'
 import Equipment from './routes/Table-page.jsx';
+import Login from './routes/Login-page.jsx'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: '/table',
     element: <Equipment />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
   }
 ])
 
