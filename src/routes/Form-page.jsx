@@ -2,10 +2,14 @@
 import Sidebar from "../components/Sidebar.jsx"
 
 import supabase from '../utils/supabase.js'
-import { useForm } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
+
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 export default function Form() {
   const {
+    control,
     register,
     handleSubmit,
     // watch,
@@ -27,11 +31,11 @@ export default function Form() {
 
   return(
     <>
-      <div style={{ display: 'flex', minHeight: '100vh' }}>
+      <div className='flex min-h-screen'>
         <Sidebar/>
         <div style={{ flexGrow: 1, padding: '1rem' }}>
           <h1>Forms Page</h1>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form className='' onSubmit={handleSubmit(onSubmit)}>
             {/* register your input into the hook by invoking the "register" function */}
             <input defaultValue="test" {...register("email")} />
 
@@ -39,6 +43,41 @@ export default function Form() {
             <input {...register("password", { required: true })} />
             {/* errors will return when field validation fails  */}
             {errors.exampleRequired && <span>This field is required</span>}
+            
+            <Controller
+              control={control}
+              rules={{
+                maxLength: 100,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextField
+                  placeholder="Last name"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )}
+              name="lastName"
+            />
+
+            <TextField
+              
+              id="outlined-error-helper-text"
+              label="Error"
+              defaultValue="Hello World"
+              helperText="Incorrect entry."
+            />
+
+            <Autocomplete
+              freeSolo
+              options={['Cisco Laboratory', 'Multimedia Laboratory', 'Software Laboratory 1', 'Software Laboratory 2', 'Software Laboratory 3', 'Info-tech Laboratory']}
+              renderInput={
+                (params) => 
+                  <TextField 
+                    {...register("room", { required: true })} {...params} label="Laboratory" 
+                  />
+              }
+            />
 
             <input type="submit" />
           </form>
