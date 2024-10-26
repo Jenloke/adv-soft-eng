@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* * {
+  outline: 1px blue solid;
+} */
+
 /* #root {
   /* max-width: 1280px;
   margin: 0 auto;
