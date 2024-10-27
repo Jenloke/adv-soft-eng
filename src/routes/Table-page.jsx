@@ -1,7 +1,8 @@
 import Sidebar from "../components/Sidebar.jsx";
 import Searchbar from "../components/Searchbar.jsx";
 import React, { useState, useEffect, useRef } from 'react';
-// import { Card, Table } from 'react-bootstrap';
+import supabase from '../utils/supabase.js'
+
 import {
   Card,
   CardHeader,
@@ -18,115 +19,127 @@ import {
 } from '@mui/material';
 
 export default function Equipment() {
-  const initialEquipmentList = [
-    {
-      itemNo: 1, 
-      propertyNo: "0046-23", 
-      category: "XITRIX", 
-      specification: 
-        {
-          processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",
-          motherboard:"XITRIX XPN-H610M2", 
-          hdd:"1TB + 250GB SSD",
-          memory: "16GB DDR4", 
-          videoCard:"NVIDIA GeForce GTX 1660 SUPER", 
-          display:"G24 24in 165Hz Curved XITRIX Monitor",
-          opticalDrive: "N/A", 
-          casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", 
-          mouse: "Xitrix® Ergonomic Design USB Keyboard", 
-          keyboard:"Xitrix® Ergonomic Design USB Mouse"
-        }, 
-      dateOfAcquisition: "09/02/2023", 
-      status:"FUNCTIONAL",
-      location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
-      campus: "MAIN 2", 
-      inCharge: "Jaycee C. Aurelio"
-    },
-    {
-      itemNo: 2, 
-      propertyNo: "0046-23", 
-      category: "XITRIX", 
-      specification: 
-        {
-          processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",
-          motherboard:"XITRIX XPN-H610M2", 
-          hdd:"1TB + 250GB SSD",
-          memory: "16GB DDR4", 
-          videoCard:"NVIDIA GeForce GTX 1660 SUPER", 
-          display:"G24 24in 165Hz Curved XITRIX Monitor",
-          opticalDrive: "N/A", 
-          casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", 
-          mouse: "Xitrix® Ergonomic Design USB Keyboard", 
-          keyboard:"Xitrix® Ergonomic Design USB Mouse"
-        }, 
-      dateOfAcquisition: "09/02/2023", 
-      status:"FUNCTIONAL",
-      location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
-      campus: "MAIN 2", 
-      inCharge: "Jaycee C. Aurelio"
-    },
-    {
-      itemNo: 3, 
-      propertyNo: "0046-23", 
-      category: "XITRIX", 
-      specification: 
-        {
-          processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",
-          motherboard:"XITRIX XPN-H610M2", 
-          hdd:"1TB + 250GB SSD",
-          memory: "16GB DDR4", 
-          videoCard:"NVIDIA GeForce GTX 1660 SUPER", 
-          display:"G24 24in 165Hz Curved XITRIX Monitor",
-          opticalDrive: "N/A", 
-          casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", 
-          mouse: "Xitrix® Ergonomic Design USB Keyboard", 
-          keyboard:"Xitrix® Ergonomic Design USB Mouse"
-        }, 
-      dateOfAcquisition: "09/02/2023", 
-      status:"FUNCTIONAL",
-      location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
-      campus: "MAIN 2", 
-      inCharge: "Jaycee C. Aurelio"
-    }
-  ]
+  // const initialEquipmentList = [
+  //   {
+  //     itemNo: 1, 
+  //     propertyNo: "0046-23", 
+  //     category: "XITRIX", 
+  //     specification: 
+  //       {
+  //         processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",
+  //         motherboard:"XITRIX XPN-H610M2", 
+  //         hdd:"1TB + 250GB SSD",
+  //         memory: "16GB DDR4", 
+  //         videoCard:"NVIDIA GeForce GTX 1660 SUPER", 
+  //         display:"G24 24in 165Hz Curved XITRIX Monitor",
+  //         opticalDrive: "N/A", 
+  //         casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", 
+  //         mouse: "Xitrix® Ergonomic Design USB Keyboard", 
+  //         keyboard:"Xitrix® Ergonomic Design USB Mouse"
+  //       }, 
+  //     dateOfAcquisition: "09/02/2023", 
+  //     status:"FUNCTIONAL",
+  //     location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
+  //     campus: "MAIN 2", 
+  //     inCharge: "Jaycee C. Aurelio"
+  //   },
+  //   {
+  //     itemNo: 2, 
+  //     propertyNo: "0046-23", 
+  //     category: "XITRIX", 
+  //     specification: 
+  //       {
+  //         processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",
+  //         motherboard:"XITRIX XPN-H610M2", 
+  //         hdd:"1TB + 250GB SSD",
+  //         memory: "16GB DDR4", 
+  //         videoCard:"NVIDIA GeForce GTX 1660 SUPER", 
+  //         display:"G24 24in 165Hz Curved XITRIX Monitor",
+  //         opticalDrive: "N/A", 
+  //         casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", 
+  //         mouse: "Xitrix® Ergonomic Design USB Keyboard", 
+  //         keyboard:"Xitrix® Ergonomic Design USB Mouse"
+  //       }, 
+  //     dateOfAcquisition: "09/02/2023", 
+  //     status:"FUNCTIONAL",
+  //     location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
+  //     campus: "MAIN 2", 
+  //     inCharge: "Jaycee C. Aurelio"
+  //   },
+  //   {
+  //     itemNo: 3, 
+  //     propertyNo: "0046-23", 
+  //     category: "XITRIX", 
+  //     specification: 
+  //       {
+  //         processor: "NTEL CORE I7-12700 2.10 GHz (12Cores)",
+  //         motherboard:"XITRIX XPN-H610M2", 
+  //         hdd:"1TB + 250GB SSD",
+  //         memory: "16GB DDR4", 
+  //         videoCard:"NVIDIA GeForce GTX 1660 SUPER", 
+  //         display:"G24 24in 165Hz Curved XITRIX Monitor",
+  //         opticalDrive: "N/A", 
+  //         casing: "XITRIX Mid Tower RGB Chassis w/ Tempered", 
+  //         mouse: "Xitrix® Ergonomic Design USB Keyboard", 
+  //         keyboard:"Xitrix® Ergonomic Design USB Mouse"
+  //       }, 
+  //     dateOfAcquisition: "09/02/2023", 
+  //     status:"FUNCTIONAL",
+  //     location:"CISCO LABORATORY, 3RD FLR. ICS BUILDING", 
+  //     campus: "MAIN 2", 
+  //     inCharge: "Jaycee C. Aurelio"
+  //   }
+  // ]
 
-  const [equipmentList, setEquipmentList] = useState(initialEquipmentList);
+  const [equipmentList, setEquipmentList] = useState([]);
+  const [currentRange, setCurrentRange] = useState(0);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const cardContentRef = useRef(null);
 
+  useEffect( () => {
+    const fetchData = async () =>{
+      try{
+        const { data, error } = await supabase.from('Equipment').select().range(currentRange,currentRange+2)
+        console.log(data)
+        setEquipmentList(data)
+      }catch(error){
+        console.error("Error fetching data: ", error)
+      }
+    }
+    fetchData()
+  },[]);
+
+  useEffect(() => {
+    const cardElement = cardContentRef.current;
+    if (cardElement) {
+      cardElement.addEventListener('scroll', handleScroll);
+    }
+    return () => {
+      if (cardElement) {
+        cardElement.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [loading, hasMore]);
+
    // Mock API call to fetch more data
    const loadMoreData = () => {
+    setCurrentRange(currentRange+3)
     setLoading(true);
+    const fetchNewItems = async () =>{
+      try{
+        const {data, error} = await supabase.from('Equipment').select().range(currentRange, currentRange+2);
+        setEquipmentList((prevList) => [...prevList, ...data]);
+
+        if (equipmentList.length < 3) setHasMore(false);
+      }catch(error){
+        console.error("Error fetching data: ", error)
+      }
+    }
     setTimeout(() => {
-      const newItems = [
-        {
-          itemNo: 4,
-          propertyNo: '0046-24',
-          category: 'XITRIX',
-          specification: {
-            processor: 'Intel Core i7-11700K',
-            motherboard: 'XITRIX XPN-H610M2',
-            hdd: '2TB + 512GB SSD',
-            memory: '32GB DDR4',
-            videoCard: 'NVIDIA GeForce RTX 3080',
-            display: 'Xitrix Monitor',
-            opticalDrive: 'N/A',
-            casing: 'RGB Chassis',
-            mouse: 'Xitrix Mouse',
-            keyboard: 'Xitrix Keyboard',
-          },
-          dateOfAcquisition: '09/02/2023',
-          status: 'FUNCTIONAL',
-          location: 'CISCO LAB',
-          campus: 'MAIN 2',
-          inCharge: 'Jaycee C. Aurelio',
-        },
-      ];
-      setEquipmentList((prevList) => [...prevList, ...newItems]);
+      fetchNewItems()
       setLoading(false);
       // Stop loading more after a certain number of items for demo purposes
-      if (equipmentList.length >= 50) setHasMore(false);
     }, 1500);
   };
 
@@ -171,38 +184,38 @@ export default function Equipment() {
                       <TableCell align="center">Property No</TableCell>
                       <TableCell align="center">Category</TableCell>
                       <TableCell>Specification</TableCell>
-                      <TableCell align="center">Date of Acquisition</TableCell>
+                      {/* <TableCell align="center">Date of Acquisition</TableCell> */}
                       <TableCell align="center">Status</TableCell>
                       <TableCell align="center">Location</TableCell>
                       <TableCell align="center">Campus</TableCell>
-                      <TableCell align="center">In-Charge</TableCell>
+                      <TableCell align="center">Lab Tech</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {equipmentList.map((item, index) => (
                       <TableRow key={index}>
-                        <TableCell align="center">{item.itemNo}</TableCell>
-                        <TableCell align="center">{item.propertyNo}</TableCell>
-                        <TableCell align="center">{item.category}</TableCell>
+                        <TableCell align="center">1</TableCell>
+                        <TableCell align="center">{item?.propertyNumber}</TableCell>
+                        <TableCell align="center">{item?.category}</TableCell>
                         <TableCell>
                           <Typography>
-                            <strong>Processor:</strong> {item.specification.processor} <br />
-                            <strong>Motherboard:</strong> {item.specification.motherboard} <br />
-                            <strong>HDD:</strong> {item.specification.hdd} <br />
-                            <strong>Memory:</strong> {item.specification.memory} <br />
-                            <strong>Video Card:</strong> {item.specification.videoCard} <br />
-                            <strong>Display:</strong> {item.specification.display} <br />
-                            <strong>Optical Drive:</strong> {item.specification.opticalDrive} <br />
-                            <strong>Casing:</strong> {item.specification.casing} <br />
-                            <strong>Mouse:</strong> {item.specification.mouse} <br />
-                            <strong>Keyboard:</strong> {item.specification.keyboard}
+                            <strong>Processor:</strong> {item?.processor} <br />
+                            <strong>Motherboard:</strong> {item?.motherboard} <br />
+                            <strong>HDD:</strong> {item?.hdd} <br />
+                            <strong>Memory:</strong> {item?.memory} <br />
+                            <strong>Video Card:</strong> {item?.videoCard} <br />
+                            <strong>Display:</strong> {item?.display} <br />
+                            <strong>Optical Drive:</strong> {item?.opticalDrive} <br />
+                            <strong>Casing:</strong> {item?.casing} <br />
+                            <strong>Mouse:</strong> {item?.mouse} <br />
+                            <strong>Keyboard:</strong> {item?.keyboard}
                           </Typography>
                         </TableCell>
-                        <TableCell align="center">{item.dateOfAcquisition}</TableCell>
-                        <TableCell align="center">{item.status}</TableCell>
-                        <TableCell align="center">{item.location}</TableCell>
-                        <TableCell align="center">{item.campus}</TableCell>
-                        <TableCell align="center">{item.inCharge}</TableCell>
+                        {/* <TableCell align="center">{item?.dateOfAcquisition}</TableCell> */}
+                        <TableCell align="center">{item?.status}</TableCell>
+                        <TableCell align="center">{item?.location}</TableCell>
+                        <TableCell align="center">{item?.campus}</TableCell>
+                        <TableCell align="center">{item?.labTech}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
