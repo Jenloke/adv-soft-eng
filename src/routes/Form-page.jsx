@@ -9,6 +9,10 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
+// Clear Buttn Text Field
+import InputAdornment from '@mui/material/InputAdornment';
+import { X } from 'lucide-react';
+
 // Date Pickers
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -21,7 +25,14 @@ export default function Form() {
     register,
     // watch,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+    propertyNumber: '',
+    category: '',
+    dateOfAquisition: null,
+    // add everything here as default values
+    }
+  })
 
   // console.log(watch("email")) // watch input value by passing the name of it
 
@@ -41,7 +52,7 @@ export default function Form() {
     //     { ...submitInputs, Status: "Functional" },
     //   ])
     // console.log(data)
-    // console.log(error)    
+    // console.log(error)
   }
   
   return(
@@ -49,51 +60,82 @@ export default function Form() {
       <div className='flex min-h-screen'>
         <Sidebar/>
         <div className="mx-auto">
-          <Button 
-            onClick={ async () => {
-              const { data } = await supabase.auth.signInWithPassword({email: 'test@example.com', password: '12345'})
-              console.log(data)
-            }} 
-            variant="contained"
-          >
-            LOGIN
-          </Button>
-
-          <h1>Add Equipment</h1>
+          <h1 className='text-center'>
+            Add Equipment
+          </h1>
 
           <form className='flex-col space-y-10' onSubmit={handleSubmit(onSubmit)}>
             {/* <input defaultValue="test" {...register("email")} /> */}
             {/* <input {...register("password", { required: true })} /> */}
             {/* {errors.exampleRequired && <span>This field is required</span>} */}
             
-            <div className='space-y-3'>
+            <div className='space-y-3 p-4 border'>
               <h4 className='text-center'>
                 Information
               </h4>
-              <TextField
-                className='w-full'
-                {...register("propertyNumber", { required: true })}
-                label="Property Number"
-                error={errors.exampleRequired}
-                helperText={errors.exampleRequired && "Input Required"}
+              <Controller
+                name="propertyNumber"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => 
+                  <TextField {...field} label="Property Number"
+                    error={!!errors.propertyNumber}
+                    helperText={errors.propertyNumber?.message}
+                    fullWidth
+                    autoFocus
+                  />
+                }
               />
-              <TextField
-                className='w-full'
-                {...register("category", { required: true })}
-                label="Category"
-                error={errors.exampleRequired}
-                helperText={errors.exampleRequired && "Input Required"}
+              <Controller
+                name="category"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => 
+                  <TextField {...field} label="Category"                
+                    error={!!errors.category}
+                    helperText={errors.category?.message}
+                    fullWidth
+                    InputProps={{
+                      ...rest.InputProps,
+                      endAdornment: field.value ? (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="clear input"
+                            onClick={() => field.onChange('')}
+                            edge="end"
+                            size="small"
+                          >
+                            <X className="h-4 w-4" />
+                          </IconButton>
+                        </InputAdornment>
+                      ) : rest.InputProps?.endAdornment
+                    }}
+                  />
+                }
               />
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Controller
                   name="dateOfAquisition"
                   control={control}
+                  rules={{
+                    required: 'Input Required',
+                  }}
                   render={({ field }) => (
                     <DatePicker
                       className='w-full'
                       label="Select Date"
                       value={field.value}
-                      onChange={(newValue) => field.onChange(newValue)} 
+                      onChange={(newValue) => field.onChange(newValue)}
+                      slotProps={{
+                        textField: {
+                          error: !!errors.dateOfAquisition,
+                          helperText: errors.dateOfAquisition?.message
+                        },
+                      }} 
                     />
                   )}
                 />
@@ -133,7 +175,7 @@ export default function Form() {
               />
             </div>
 
-            <div className='space-y-3'>
+            <div className='space-y-3 p-4 border'>
               <h4 className='text-center'>
                 Device Specification
               </h4>
