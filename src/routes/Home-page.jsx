@@ -1,7 +1,9 @@
 import Sidebar from "../components/Sidebar.jsx";
 
-// import supabase from '../utils/supabase.js'
+import supabase from '../utils/supabase.js'
 // import { useState, useEffect } from 'react'
+
+import Button from '@mui/material/Button';
 
 export default function Home() {
   // const [lab, setLab] = useState([])
@@ -25,6 +27,16 @@ export default function Home() {
           {/* Other content goes here */}
           <h1>ICT MANAGEMENT SYSTEM</h1>
           <p>This is the rest of the screen content.</p>
+
+          <Button 
+            onClick={ async () => {
+              const { data } = await supabase.auth.signInWithPassword({email: 'test@example.com', password: '12345'})
+              console.log(data)
+            }} 
+            variant="contained"
+          >
+            LOGIN
+          </Button>
         </div>
       </div>
     </>
