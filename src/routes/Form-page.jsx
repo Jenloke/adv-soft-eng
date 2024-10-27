@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar.jsx"
 import supabase from '../utils/supabase.js'
 
 import { Controller, useForm } from "react-hook-form"
+import React, { useState, useEffect, useRef } from 'react';
 
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
@@ -19,6 +20,55 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export default function Form() {
+  const [labOptions, setLabOptions] = useState([]);
+  const [campusOptions, setCampusOptions] = useState([]);
+  const [techOptions, setTechOptions] = useState([]);
+  const [processorOptions, setProcessorOptions] = useState([]);
+  const [motherboardOptions, setMotherboardOptions] = useState([]);
+  const [hddOptions, setHddOptions] = useState([]);
+  const [memoryOptions, setMemoryOptions] = useState([]);
+  const [videoCardOptions, setVideoCardOptions] = useState([]);
+  const [displayOptions, setDisplayOptions] = useState([]);
+  const [opticalDriveOptions, setOpticalDriveOptions] = useState([]);
+  const [casingOptions, setCasingOptions] = useState([]);
+  const [mouseOptions, setMouseOptions] = useState([]);
+  const [keyboardOptions, setKeyboardOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () =>{
+      try{
+        const { data, error } = await supabase.from('FormOptions').select();
+
+        setLabOptions(data.map((item) => item.laboratory).filter((laboratory) => laboratory !== null));
+        setCampusOptions(data.map((item) => item.campus).filter((campus) => campus !== null));
+        setProcessorOptions(data.map((item) => item.processor).filter((processor) => processor !== null));
+        setMotherboardOptions(data.map((item) => item.motherboard).filter((motherboard) => motherboard !== null));
+        setHddOptions(data.map((item) => item.hdd).filter((hdd) => hdd !== null));
+        setMemoryOptions(data.map((item) => item.memory).filter((memory) => memory !== null));
+        setVideoCardOptions(data.map((item) => item.videoCard).filter((videoCard) => videoCard !== null));
+        setDisplayOptions(data.map((item) => item.display).filter((display) => display !== null));
+        setOpticalDriveOptions(data.map((item) => item.opticalDrive).filter((opticalDrive) => opticalDrive !== null));
+        setCasingOptions(data.map((item) => item.casing).filter((casing) => casing !== null));
+        setMouseOptions(data.map((item) => item.mouse).filter((mouse) => mouse !== null));
+        setKeyboardOptions(data.map((item) => item.keyboard).filter((keyboard) => keyboard !== null));
+      }catch(error){
+        console.error("Error fetching data: ", error)
+      }
+    }
+
+    const fetchTechNames = async () =>{
+      try{
+        const { data, error } = await supabase.from('LabTech').select('name');
+        setTechOptions(data.map((item) => item.name));
+      }catch(error){
+        console.error("Error fetching data: ", error)
+      }
+    }
+
+    fetchTechNames();
+    fetchData();
+  }, []);
+
   const {
     control,
     handleSubmit,
@@ -159,7 +209,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['Cisco Laboratory', 'Multimedia Laboratory', 'Software Laboratory 1', 'Software Laboratory 2', 'Software Laboratory 3', 'Info-tech Laboratory']}
+                    options={labOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -182,7 +232,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['Alangilan', 'Pablo Borbon']}
+                    options={campusOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -205,7 +255,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['Jaycee C. Aurelio', 'Lohren Joshua L. Geron', 'John Pol M. Jalapan', 'Alain Micko C. Moreno']}
+                    options={techOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -244,7 +294,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['INTEL CORE I7-12700 2.10 GHz (12Cores)', 'INTEL CORE I5-7400 3.00 GHz (4Cores)']}
+                    options={processorOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -267,7 +317,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['XITRIX XPN-H610M2', 'ASUS PRIME B250M-A']}
+                    options={motherboardOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -290,7 +340,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['1TB + 250GB SSD', '1TB']}
+                    options={hddOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -313,7 +363,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['16GB DDR4', 'KINGSTON 4G DDR4']}
+                    options={memoryOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -336,7 +386,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['NVIDIA GeForce GTX 1660 SUPER', 'INTEL HD GRAPHICS 630']}
+                    options={videoCardOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -359,7 +409,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['G24 24" 165Hz Curved XITRIX Monitor', 'AOC 19.53" LED MONITOR']}
+                    options={displayOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -382,7 +432,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['HAVE', 'NONE']}
+                    options={opticalDriveOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -405,7 +455,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['XITRIX Mid Tower RGB Chassis w/ Tempered', 'COOLERMASTER']}
+                    options={casingOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -428,7 +478,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['Xitrix Ergonomic Design USB Mouse', 'A4TECH USB']}
+                    options={mouseOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -451,7 +501,7 @@ export default function Form() {
                   <Autocomplete
                     {...field}
                     freeSolo
-                    options={['Xitrix Ergonomic Design USB Keyboard', 'A4TECH USB']}
+                    options={keyboardOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
