@@ -10,8 +10,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 // Clear Buttn Text Field
-import InputAdornment from '@mui/material/InputAdornment';
-import { X } from 'lucide-react';
+// import InputAdornment from '@mui/material/InputAdornment';
+// import { X } from 'lucide-react';
 
 // Date Pickers
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -27,10 +27,23 @@ export default function Form() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-    propertyNumber: '',
-    category: '',
-    dateOfAquisition: null,
-    // add everything here as default values
+      propertyNumber: '',
+      category: '',
+      dateOfAquisition: null,
+      laboratory: '',
+      campus: '',
+      labtech: '',
+
+      processor: '',
+      motherboard: '',
+      hdd: '',
+      memory: '',
+      videoCard: '',
+      display: '',
+      opticalDrive: '',
+      casing: '',
+      mouse: '',
+      keyboard: '',
     }
   })
 
@@ -39,32 +52,43 @@ export default function Form() {
   const onSubmit = async (formInputs) => {
     console.log(formInputs)
     const submitInputs = {
-      PropertyNumber: formInputs.propertyNumber,
-      Category: formInputs.category,
-      DateAquisition: formInputs.dateOfAquisition,
-      Location: formInputs.room,
-      Campus: formInputs.campus,
-      LabTech: formInputs.officer,
+      propertyNumber: formInputs.propertyNumber,
+      category: formInputs.category,
+      dateAquisition: formInputs.dateOfAquisition,
+      location: formInputs.laboratory,
+      campus: formInputs.campus,
+      labTech: formInputs.labtech,
+
+      processor: formInputs.processor,
+      motherboard: formInputs.motherboard,
+      hdd: formInputs.hdd,
+      memory: formInputs.memory,
+      videoCard: formInputs.videoCard,
+      display: formInputs.display,
+      opticalDrive: formInputs.opticalDrive,
+      casing: formInputs.casing,
+      mouse: formInputs.mouse,
+      keyboard: formInputs.keyboard,
     }
-    // const { data, error } = await supabase
-    //   .from('Equipment')
-    //   .insert([
-    //     { ...submitInputs, Status: "Functional" },
-    //   ])
-    // console.log(data)
-    // console.log(error)
+    const { data, error } = await supabase
+      .from('Equipment')
+      .insert([
+        { ...submitInputs, status: "Functional" },
+      ])
+    console.log(data)
+    console.log(error)
   }
   
   return(
     <>
       <div className='flex min-h-screen'>
         <Sidebar/>
-        <div className="mx-auto">
+        <div className="mx-auto py-4">
           <h1 className='text-center'>
             Add Equipment
           </h1>
 
-          <form className='flex-col space-y-10' onSubmit={handleSubmit(onSubmit)}>
+          <form className='flex-col mx-auto w-3/5 space-y-10' onSubmit={handleSubmit(onSubmit)}>
             {/* <input defaultValue="test" {...register("email")} /> */}
             {/* <input {...register("password", { required: true })} /> */}
             {/* {errors.exampleRequired && <span>This field is required</span>} */}
@@ -84,7 +108,7 @@ export default function Form() {
                     error={!!errors.propertyNumber}
                     helperText={errors.propertyNumber?.message}
                     fullWidth
-                    autoFocus
+                    // autoFocus
                   />
                 }
               />
@@ -99,21 +123,6 @@ export default function Form() {
                     error={!!errors.category}
                     helperText={errors.category?.message}
                     fullWidth
-                    InputProps={{
-                      ...rest.InputProps,
-                      endAdornment: field.value ? (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="clear input"
-                            onClick={() => field.onChange('')}
-                            edge="end"
-                            size="small"
-                          >
-                            <X className="h-4 w-4" />
-                          </IconButton>
-                        </InputAdornment>
-                      ) : rest.InputProps?.endAdornment
-                    }}
                   />
                 }
               />
@@ -127,7 +136,7 @@ export default function Form() {
                   render={({ field }) => (
                     <DatePicker
                       className='w-full'
-                      label="Select Date"
+                      label='Select Date'
                       value={field.value}
                       onChange={(newValue) => field.onChange(newValue)}
                       slotProps={{
@@ -140,154 +149,320 @@ export default function Form() {
                   )}
                 />
               </LocalizationProvider>
-              <Autocomplete
-                freeSolo
-                options={['Cisco Laboratory', 'Multimedia Laboratory', 'Software Laboratory 1', 'Software Laboratory 2', 'Software Laboratory 3', 'Info-tech Laboratory']}
-                renderInput={
-                  (params) => 
-                    <TextField
-                      className='w-full'
-                      {...register("room", { required: true })} {...params} label="Laboratory" 
-                    />
-                }
+              <Controller
+                name="laboratory"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['Cisco Laboratory', 'Multimedia Laboratory', 'Software Laboratory 1', 'Software Laboratory 2', 'Software Laboratory 3', 'Info-tech Laboratory']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label='Laboratory'
+                        error={!!errors.laboratory}
+                        helperText={errors.laboratory?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['Alangilan', 'Pablo Borbon']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-full'
-                      {...register("campus", { required: true })} {...params} label="Campus" 
-                    />
-                }
+              <Controller
+                name="campus"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['Alangilan', 'Pablo Borbon']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Campus"
+                        error={!!errors.campus}
+                        helperText={errors.campus?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['Jaycee C. Aurelio', 'Lohren Joshua L. Geron', 'John Pol M. Jalapan', 'Alain Micko C. Moreno']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-full'
-                      {...register("officer", { required: true })} {...params} label="ICT Officer In Charge" 
-                    />
-                }
+              <Controller
+                name="labtech"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['Jaycee C. Aurelio', 'Lohren Joshua L. Geron', 'John Pol M. Jalapan', 'Alain Micko C. Moreno']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="ICT Technician In Charge"
+                        error={!!errors.labtech}
+                        helperText={errors.labtech?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
             </div>
 
             <div className='space-y-3 p-4 border'>
               <h4 className='text-center'>
-                Device Specification
+                ICT Equipment Specification
               </h4>
-              <Autocomplete
-                freeSolo
-                options={['INTEL CORE I7-12700 2.10 GHz (12Cores)', 'INTEL CORE I5-7400 3.00 GHz (4Cores)']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-1/5'
-                      {...register("processor", { required: true })} {...params} label="Processor" 
-                    />
-                }
+              {/* processor: '',
+              motherboard: '',
+              hdd: '',
+              memory: '',
+              videoCard: '',
+              display: '',
+              opticalDrive: '',
+              casing: '',
+              mouse: '',
+              keyboard: '', */}
+              <Controller
+                name="processor"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['INTEL CORE I7-12700 2.10 GHz (12Cores)', 'INTEL CORE I5-7400 3.00 GHz (4Cores)']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Processor" 
+                        error={!!errors.processor}
+                        helperText={errors.processor?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['XITRIX XPN-H610M2', 'ASUS PRIME B250M-A']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-1/5'
-                      {...register("motherboard", { required: true })} {...params} label="Motherboard" 
-                    />
-                }
+              <Controller
+                name="motherboard"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['XITRIX XPN-H610M2', 'ASUS PRIME B250M-A']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Motherboard"
+                        error={!!errors.motherboard}
+                        helperText={errors.motherboard?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['1TB + 250GB SSD', '1TB']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-1/5'
-                      {...register("hdd", { required: true })} {...params} label="HDD" 
-                    />
-                }
+              <Controller
+                name="hdd"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['1TB + 250GB SSD', '1TB']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="HDD"
+                        error={!!errors.hdd}
+                        helperText={errors.hdd?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['16GB DDR4', 'KINGSTON 4G DDR4']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-1/5'
-                      {...register("memory", { required: true })} {...params} label="Memory" 
-                    />
-                }
+              <Controller
+                name="memory"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['16GB DDR4', 'KINGSTON 4G DDR4']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Memory"
+                        error={!!errors.memory}
+                        helperText={errors.memory?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['NVIDIA GeForce GTX 1660 SUPER', 'INTEL HD GRAPHICS 630']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-1/5'
-                      {...register("videoCard", { required: true })} {...params} label="Video Card" 
-                    />
-                }
+              <Controller
+                name="videoCard"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['NVIDIA GeForce GTX 1660 SUPER', 'INTEL HD GRAPHICS 630']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Video Card"
+                        error={!!errors.videoCard}
+                        helperText={errors.videoCard?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['G24 24" 165Hz Curved XITRIX Monitor', 'AOC 19.53" LED MONITOR']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-1/5'
-                      {...register("display", { required: true })} {...params} label="Display" 
-                    />
-                }
+              <Controller
+                name="display"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['G24 24" 165Hz Curved XITRIX Monitor', 'AOC 19.53" LED MONITOR']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Display"
+                        error={!!errors.display}
+                        helperText={errors.display?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['HAVE', 'NONE']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-1/5'
-                      {...register("opticalDrive", { required: true })} {...params} label="Optical Drive" 
-                    />
-                }
+              <Controller
+                name="opticalDrive"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['HAVE', 'NONE']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Optical Drive"
+                        error={!!errors.opticalDrive}
+                        helperText={errors.opticalDrive?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['XITRIX Mid Tower RGB Chassis w/ Tempered', 'COOLERMASTER']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-1/5'
-                      {...register("casing", { required: true })} {...params} label="Casing" 
-                    />
-                }
+              <Controller
+                name="casing"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['XITRIX Mid Tower RGB Chassis w/ Tempered', 'COOLERMASTER']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Casing"
+                        error={!!errors.casing}
+                        helperText={errors.casing?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['Xitrix Ergonomic Design USB Mouse', 'A4TECH USB']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-1/5'
-                      {...register("mouse", { required: true })} {...params} label="Mouse" 
-                    />
-                }
+              <Controller
+                name="mouse"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['Xitrix Ergonomic Design USB Mouse', 'A4TECH USB']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Mouse"
+                        error={!!errors.mouse}
+                        helperText={errors.mouse?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
-              <Autocomplete
-                freeSolo
-                options={['Xitrix Ergonomic Design USB Keyboard', 'A4TECH USB']}
-                renderInput={
-                  (params) => 
-                    <TextField 
-                      className='w-1/5'
-                      {...register("keyboard", { required: true })} {...params} label="Keyboard" 
-                    />
-                }
+              <Controller
+                name="keyboard"
+                control={control}
+                rules={{
+                  required: 'Input Required',
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    freeSolo
+                    options={['Xitrix Ergonomic Design USB Keyboard', 'A4TECH USB']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Keyboard"
+                        error={!!errors.keyboard}
+                        helperText={errors.keyboard?.message}
+                      />
+                    )}
+                    onChange={(_, newValue) => field.onChange(newValue)}
+                  />
+                )}
               />
             </div>
             <Button type="submit" variant="contained">
