@@ -20,89 +20,34 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 
 export default function Form() {
-  const [labOptions, setLabOptions] = useState([])
-  const [campusOptions, setCampusOptions] = useState([])
-  const [techOptions, setTechOptions] = useState([])
-  const [processorOptions, setProcessorOptions] = useState([])
-  const [motherboardOptions, setMotherboardOptions] = useState([])
-  const [hddOptions, setHddOptions] = useState([])
-  const [memoryOptions, setMemoryOptions] = useState([])
-  const [videoCardOptions, setVideoCardOptions] = useState([])
-  const [displayOptions, setDisplayOptions] = useState([])
-  const [opticalDriveOptions, setOpticalDriveOptions] = useState([])
-  const [casingOptions, setCasingOptions] = useState([])
-  const [mouseOptions, setMouseOptions] = useState([])
-  const [keyboardOptions, setKeyboardOptions] = useState([])
+  const [options, setOptions] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data, error } = await supabase.from("FormOptions").select()
 
-        setLabOptions(
-          data
-            .map((item) => item.laboratory)
-            .filter((laboratory) => laboratory !== null)
-        )
-        setCampusOptions(
-          data.map((item) => item.campus).filter((campus) => campus !== null)
-        )
-        setProcessorOptions(
-          data
-            .map((item) => item.processor)
-            .filter((processor) => processor !== null)
-        )
-        setMotherboardOptions(
-          data
-            .map((item) => item.motherboard)
-            .filter((motherboard) => motherboard !== null)
-        )
-        setHddOptions(
-          data.map((item) => item.hdd).filter((hdd) => hdd !== null)
-        )
-        setMemoryOptions(
-          data.map((item) => item.memory).filter((memory) => memory !== null)
-        )
-        setVideoCardOptions(
-          data
-            .map((item) => item.videoCard)
-            .filter((videoCard) => videoCard !== null)
-        )
-        setDisplayOptions(
-          data.map((item) => item.display).filter((display) => display !== null)
-        )
-        setOpticalDriveOptions(
-          data
-            .map((item) => item.opticalDrive)
-            .filter((opticalDrive) => opticalDrive !== null)
-        )
-        setCasingOptions(
-          data.map((item) => item.casing).filter((casing) => casing !== null)
-        )
-        setMouseOptions(
-          data.map((item) => item.mouse).filter((mouse) => mouse !== null)
-        )
-        setKeyboardOptions(
-          data
-            .map((item) => item.keyboard)
-            .filter((keyboard) => keyboard !== null)
-        )
+        const tempOptions = data.reduce((acc, item) => {
+          const { classification, specification } = item;
+            if (!acc[classification]) {
+              acc[classification] = new Set(); // Initialize as a Set for unique values
+            }
+            acc[classification].add(specification); // Add specification to its classification
+          return acc;
+        }, {});
+
+        // Convert Sets to arrays for easier use in your options
+        const formattedOptions = {};
+        for (const key in tempOptions) {
+          formattedOptions[key] = Array.from(tempOptions[key]);
+        }
+        setOptions(formattedOptions);
       } catch (error) {
         console.error("Error fetching data: ", error)
       }
+      
     }
-
-    const fetchTechNames = async () => {
-      try {
-        const { data, error } = await supabase.from("LabTech").select("name")
-        setTechOptions(data.map((item) => item.name))
-      } catch (error) {
-        console.error("Error fetching data: ", error)
-      }
-    }
-
-    fetchTechNames()
-    fetchData()
+    fetchData();
   }, [])
 
   const {
@@ -246,7 +191,7 @@ export default function Form() {
                     <Autocomplete
                       {...field}
                       freeSolo
-                      options={labOptions}
+                      options={options["LOCATION"]}
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -269,7 +214,7 @@ export default function Form() {
                     <Autocomplete
                       {...field}
                       freeSolo
-                      options={campusOptions}
+                      options={options["CAMPUS"]}
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -292,7 +237,7 @@ export default function Form() {
                     <Autocomplete
                       {...field}
                       freeSolo
-                      options={techOptions}
+                      options={options["LAB TECH"]}
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -321,7 +266,7 @@ export default function Form() {
                         <Autocomplete
                           {...field}
                           freeSolo
-                          options={processorOptions}
+                          options={options["PROCESSOR"]}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -344,7 +289,7 @@ export default function Form() {
                         <Autocomplete
                           {...field}
                           freeSolo
-                          options={motherboardOptions}
+                          options={options["MOTHERBOARD"]}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -367,7 +312,7 @@ export default function Form() {
                         <Autocomplete
                           {...field}
                           freeSolo
-                          options={hddOptions}
+                          options={options["HDD"]}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -390,7 +335,7 @@ export default function Form() {
                         <Autocomplete
                           {...field}
                           freeSolo
-                          options={memoryOptions}
+                          options={options["MEMORY"]}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -413,7 +358,7 @@ export default function Form() {
                         <Autocomplete
                           {...field}
                           freeSolo
-                          options={videoCardOptions}
+                          options={options["VIDEO CARD"]}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -438,7 +383,7 @@ export default function Form() {
                         <Autocomplete
                           {...field}
                           freeSolo
-                          options={displayOptions}
+                          options={options["DISPLAY"]}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -461,7 +406,7 @@ export default function Form() {
                         <Autocomplete
                           {...field}
                           freeSolo
-                          options={opticalDriveOptions}
+                          options={options["OPTICAL DRIVE"]}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -484,7 +429,7 @@ export default function Form() {
                         <Autocomplete
                           {...field}
                           freeSolo
-                          options={casingOptions}
+                          options={options["CASING"]}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -507,7 +452,7 @@ export default function Form() {
                         <Autocomplete
                           {...field}
                           freeSolo
-                          options={mouseOptions}
+                          options={options["MOUSE"]}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -530,7 +475,7 @@ export default function Form() {
                         <Autocomplete
                           {...field}
                           freeSolo
-                          options={keyboardOptions}
+                          options={options["KEYBOARD"]}
                           renderInput={(params) => (
                             <TextField
                               {...params}
