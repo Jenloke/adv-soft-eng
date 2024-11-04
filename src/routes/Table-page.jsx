@@ -1,7 +1,9 @@
 import Sidebar from '../components/Sidebar.jsx'
 import Searchbar from '../components/Searchbar.jsx'
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import supabase from '../utils/supabase.js'
+
+import dayjs from 'dayjs'
 
 import {
   Card,
@@ -14,15 +16,15 @@ import {
   TableHead,
   TableRow,
   Typography,
-  CircularProgress,
+  // CircularProgress,
   Paper,
 } from '@mui/material'
 
 export default function Equipment() {
   const [equipmentList, setEquipmentList] = useState([])
-  const [currentRange, setCurrentRange] = useState(0)
-  const [loading, setLoading] = useState(false)
-  const [hasMore, setHasMore] = useState(true)
+  // const [currentRange, setCurrentRange] = useState(0)
+  // const [loading, setLoading] = useState(false)
+  // const [hasMore, setHasMore] = useState(true)
   const cardContentRef = useRef(null)
 
   useEffect(() => {
@@ -30,8 +32,9 @@ export default function Equipment() {
       try {
         const { data, error } = await supabase
           .from('Equipment')
-          .select()
-          .range(currentRange, currentRange + 2)
+          .select('*')
+          .eq('location', 'Multimedia Laboratory')
+        // .range(currentRange, currentRange + 2)
         console.log(data)
         setEquipmentList(data)
       } catch (error) {
@@ -41,78 +44,84 @@ export default function Equipment() {
     fetchData()
   }, [])
 
-  useEffect(() => {
-    const cardElement = cardContentRef.current
-    if (cardElement) {
-      cardElement.addEventListener('scroll', handleScroll)
-    }
-    return () => {
-      if (cardElement) {
-        cardElement.removeEventListener('scroll', handleScroll)
-      }
-    }
-  }, [loading, hasMore])
+  // useEffect(() => {
+  //   const cardElement = cardContentRef.current
+  //   if (cardElement) {
+  //     cardElement.addEventListener('scroll', handleScroll)
+  //   }
+  //   return () => {
+  //     if (cardElement) {
+  //       cardElement.removeEventListener('scroll', handleScroll)
+  //     }
+  //   }
+  // }, [loading, hasMore])
 
   // Mock API call to fetch more data
-  const loadMoreData = () => {
-    setCurrentRange(currentRange + 3)
-    setLoading(true)
-    const fetchNewItems = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('Equipment')
-          .select()
-          .range(currentRange, currentRange + 2)
-        setEquipmentList((prevList) => [...prevList, ...data])
+  // const loadMoreData = () => {
+  //   setCurrentRange(currentRange + 3)
+  //   setLoading(true)
+  //   const fetchNewItems = async () => {
+  //     try {
+  //       const { data, error } = await supabase
+  //         .from('Equipment')
+  //         .select()
+  //         .range(currentRange, currentRange + 2)
+  //       setEquipmentList((prevList) => [...prevList, ...data])
 
-        if (equipmentList.length < 3) setHasMore(false)
-      } catch (error) {
-        console.error('Error fetching data: ', error)
-      }
-    }
-    setTimeout(() => {
-      fetchNewItems()
-      setLoading(false)
-      // Stop loading more after a certain number of items for demo purposes
-    }, 1500)
+  //       if (equipmentList.length < 3) setHasMore(false)
+  //     } catch (error) {
+  //       console.error('Error fetching data: ', error)
+  //     }
+  //   }
+  //   setTimeout(() => {
+  //     fetchNewItems()
+  //     setLoading(false)
+  //     // Stop loading more after a certain number of items for demo purposes
+  //   }, 1500)
+  // }
+
+  // const handleScroll = () => {
+  //   if (cardContentRef.current) {
+  //     const { scrollTop, scrollHeight, clientHeight } = cardContentRef.current
+  //     if (
+  //       scrollTop + clientHeight >= scrollHeight - 10 &&
+  //       hasMore &&
+  //       !loading
+  //     ) {
+  //       loadMoreData()
+  //     }
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   const cardElement = cardContentRef.current
+  //   if (cardElement) {
+  //     cardElement.addEventListener('scroll', handleScroll)
+  //   }
+  //   return () => {
+  //     if (cardElement) {
+  //       cardElement.removeEventListener('scroll', handleScroll)
+  //     }
+  //   }
+  // }, [loading, hasMore])
+
+  const strToDate = (date) => {
+    return dayjs(date).format('YYYY-MM-DD')
   }
-
-  const handleScroll = () => {
-    if (cardContentRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = cardContentRef.current
-      if (
-        scrollTop + clientHeight >= scrollHeight - 10 &&
-        hasMore &&
-        !loading
-      ) {
-        loadMoreData()
-      }
-    }
-  }
-
-  useEffect(() => {
-    const cardElement = cardContentRef.current
-    if (cardElement) {
-      cardElement.addEventListener('scroll', handleScroll)
-    }
-    return () => {
-      if (cardElement) {
-        cardElement.removeEventListener('scroll', handleScroll)
-      }
-    }
-  }, [loading, hasMore])
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          minHeight: '100vh',
-          backgroundColor: '#e6e6e6',
-        }}
-      >
+      <div className="flex min-h-[100vh] bg-[#e6e6e6]">
         <Sidebar />
         <div style={{ flexGrow: 1, padding: '1rem' }}>
+          <div>
+            <button onClick={() => alert(0)}>CL</button>
+            <button onClick={() => alert(0)}>ML</button>
+            <button onClick={() => alert(0)}>SL1</button>
+            <button onClick={() => alert(0)}>SL2</button>
+            <button onClick={() => alert(0)}>SL3</button>
+            <button onClick={() => alert(0)}>ITL</button>
+          </div>
           <Card
             style={{
               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
@@ -125,7 +134,7 @@ export default function Equipment() {
               ref={cardContentRef}
               sx={{ height: '83vh', overflowY: 'auto', padding: 0 }} // Scrollable container
             >
-              <Searchbar />
+              {/* <Searchbar /> */}
               <TableContainer component={Paper}>
                 <Table stickyHeader>
                   <TableHead>
@@ -134,7 +143,7 @@ export default function Equipment() {
                       <TableCell align="center">Property No</TableCell>
                       <TableCell align="center">Category</TableCell>
                       <TableCell>Specification</TableCell>
-                      {/* <TableCell align="center">Date of Acquisition</TableCell> */}
+                      <TableCell align="center">Date of Acquisition</TableCell>
                       <TableCell align="center">Status</TableCell>
                       <TableCell align="center">Location</TableCell>
                       <TableCell align="center">Campus</TableCell>
@@ -144,7 +153,7 @@ export default function Equipment() {
                   <TableBody>
                     {equipmentList.map((item, index) => (
                       <TableRow key={index}>
-                        <TableCell align="center">1</TableCell>
+                        <TableCell align="center">{index + 1}</TableCell>
                         <TableCell align="center">
                           {item?.propertyNumber}
                         </TableCell>
@@ -166,7 +175,9 @@ export default function Equipment() {
                             <strong>Keyboard:</strong> {item?.keyboard}
                           </Typography>
                         </TableCell>
-                        {/* <TableCell align="center">{item?.dateOfAcquisition}</TableCell> */}
+                        <TableCell align="center">
+                          {strToDate(item?.dateOfAcquisition)}
+                        </TableCell>
                         <TableCell align="center">{item?.status}</TableCell>
                         <TableCell align="center">{item?.location}</TableCell>
                         <TableCell align="center">{item?.campus}</TableCell>
@@ -176,11 +187,11 @@ export default function Equipment() {
                   </TableBody>
                 </Table>
               </TableContainer>
-              {loading && (
+              {/* {loading && (
                 <div style={{ textAlign: 'center', padding: '10px' }}>
                   <CircularProgress />
                 </div>
-              )}
+              )} */}
             </CardContent>
           </Card>
         </div>
