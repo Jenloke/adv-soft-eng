@@ -1,63 +1,84 @@
-import React, { useState } from 'react';
-import { TextField, Button, Typography, Box, Container } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import backgroundImage from '../assets/homepage-webslider-1.jpg'; // Your image path
+import { useState } from 'react'
+import { TextField, Button, Typography, Box, Container } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import backgroundImage from '../assets/homepage-webslider-1.jpg' // Your image path
+
+import { useNavigate } from 'react-router-dom'
+import supabase from '../utils/supabase'
 
 // Container for the entire layout
-const StyledContainer = styled(Container)(({ theme }) => ({
+// const StyledContainer = styled(Container)(({ theme }) => ({
+const StyledContainer = styled(Container)(() => ({
   minHeight: '100vh',
   display: 'flex',
   alignItems: 'center',
   padding: 0,
   margin: 0,
   width: '100vw',
-  backgroundColor: "#ebebeb"
-}));
+  backgroundColor: '#ebebeb',
+}))
 
 // Left section with background image
-const LeftSection = styled(Box)(({ theme }) => ({
-    position: "relative",
-    '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: -40,
-        right: 0,
-        bottom: 0,
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        opacity: 0.7, // Adjust opacity here
-        zIndex: 1,
-      },
+// const LeftSection = styled(Box)(({ theme }) => ({
+const LeftSection = styled(Box)(() => ({
+  position: 'relative',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: -40,
+    right: 0,
+    bottom: 0,
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    opacity: 0.7, // Adjust opacity here
+    zIndex: 1,
+  },
   flex: 2, // Occupies 2/3 of the screen width
   height: '100vh',
-}));
+}))
 
 // Right section with form
 const FormSection = styled(Box)(({ theme }) => ({
-    flex: 1, // Occupies 1/3 of the screen width
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 20,
-    padding: theme.spacing(4),
-    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-    backgroundColor: "#fff",
-    borderRadius: theme.shape.borderRadius,
-    zIndex: 2, // Ensure form is above background image
-}));
+  flex: 1, // Occupies 1/3 of the screen width
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginLeft: 20,
+  padding: theme.spacing(4),
+  boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+  backgroundColor: '#fff',
+  borderRadius: theme.shape.borderRadius,
+  zIndex: 2, // Ensure form is above background image
+}))
 
-const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginForm() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const navigate = useNavigate()
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
     // Handle login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: 'test@example.com',
+      password: '123456',
+    })
+    console.log(data)
+    console.log(error)
+    navigate('/')
+    // if (!data.session) {
+    //   console.error(error)
+    //   alert('login error')
+    // } else {
+    //   console.log(data)
+    //   redirect('/')
+    // }
+    // console.log('Email:', email)
+    // console.log('Password:', password)
+  }
 
   return (
     <StyledContainer maxWidth={false}>
@@ -93,14 +114,11 @@ const LoginForm = () => {
               </Button>
             </Box>
             <Typography variant="body2" mt={2} textAlign="center">
-              Forgot password?{' '}
-              <a href="#">Click here</a>
+              Forgot password? <a href="#">Click here</a>
             </Typography>
           </form>
         </Box>
       </FormSection>
     </StyledContainer>
-  );
-};
-
-export default LoginForm;
+  )
+}

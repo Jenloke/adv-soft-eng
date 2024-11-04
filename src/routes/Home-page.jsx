@@ -1,42 +1,61 @@
-import Sidebar from "../components/Sidebar.jsx";
+import Sidebar from '../components/Sidebar.jsx'
+
+import { Button, Stack } from '@mui/material'
 
 import supabase from '../utils/supabase.js'
-// import { useState, useEffect } from 'react'
-
-import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
-  // const [lab, setLab] = useState([])
+  const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   const getLab = async () => {
-  //     const { data: Laboratory } = await supabase.from('Laboratory').select('*')
-  //     return Laboratory
-  //   }
-
-  //   setLab(getLab())
-  // }, [])
-
-
-  return(
+  return (
     <>
-      {/* <button onClick={() => console.log(lab)}>123</button> */}
-      <div style={{ display: 'flex', minHeight: '100vh' }}>
-        <Sidebar/>
-        <div style={{ flexGrow: 1, padding: '1rem' }}>
-          {/* Other content goes here */}
+      <div className="flex min-h-screen">
+        <Sidebar />
+        {/* <div style={{ flexGrow: 1, padding: '1rem' }}> */}
+        <div className="p-4">
           <h1>ICT MANAGEMENT SYSTEM</h1>
-          <p>This is the rest of the screen content.</p>
 
-          <Button 
-            onClick={ async () => {
-              const { data } = await supabase.auth.signInWithPassword({email: 'test@example.com', password: '12345'})
-              console.log(data)
-            }} 
-            variant="contained"
-          >
-            LOGIN
-          </Button>
+          <Stack gap={3}>
+            <Button
+              onClick={async () => {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                  email: 'test@example.com',
+                  password: '123456',
+                })
+                if (error) console.error(error)
+                console.log(data)
+              }}
+              variant="contained"
+            >
+              LOGIN
+            </Button>
+            <Button
+              onClick={async () => {
+                const { data, error } = await supabase.auth.getSession()
+                if (data.session == null) {
+                  console.log('no user')
+                  console.log(error)
+                } else {
+                  console.log(data)
+                }
+                // if (error) console.error(error)
+              }}
+              variant="contained"
+            >
+              Retrieve User
+            </Button>
+            <Button
+              onClick={async () => {
+                const { error } = await supabase.auth.signOut()
+                if (error) console.log(error)
+                navigate('/login')
+              }}
+              variant="contained"
+            >
+              Signout
+            </Button>
+          </Stack>
         </div>
       </div>
     </>
