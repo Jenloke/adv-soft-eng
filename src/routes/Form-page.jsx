@@ -4,11 +4,12 @@ import Sidebar from '../components/Sidebar.jsx'
 import supabase from '../utils/supabase.js'
 
 import { Controller, useForm } from 'react-hook-form'
-import React, { useState, useEffect, useRef } from 'react'
 
 import Autocomplete from '@mui/material/Autocomplete'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+
+import { useLoaderData } from 'react-router-dom'
 
 // Clear Buttn Text Field
 // import InputAdornment from '@mui/material/InputAdornment';
@@ -19,40 +20,32 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
-export default function Form() {
-  const [options, setOptions] = useState({})
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data, error } = await supabase.from('FormOptions').select()
-
-        const tempOptions = data.reduce((acc, item) => {
-          const { classification, specification } = item
-          if (!acc[classification]) {
-            acc[classification] = new Set() // Initialize as a Set for unique values
-          }
-          acc[classification].add(specification) // Add specification to its classification
-          return acc
-        }, {})
-
-        // Convert Sets to arrays for easier use in your options
-        const formattedOptions = {}
-        for (const key in tempOptions) {
-          formattedOptions[key] = Array.from(tempOptions[key])
-        }
-        setOptions(formattedOptions)
-      } catch (error) {
-        console.error('Error fetching data: ', error)
-      }
+const formatOptions = (data) => {
+  const tempOptions = data.reduce((acc, item) => {
+    const { classification, specification } = item
+    if (!acc[classification]) {
+      acc[classification] = new Set() // Initialize as a Set for unique values
     }
-    fetchData()
-  }, [])
+    acc[classification].add(specification) // Add specification to its classification
+    return acc
+  }, {})
+
+  // Convert Sets to arrays for easier use in your options
+  const formattedOptions = {}
+  for (const key in tempOptions) {
+    formattedOptions[key] = Array.from(tempOptions[key])
+  }
+  return formattedOptions
+}
+
+export default function Form() {
+  const data = useLoaderData()
+  const options = formatOptions(data)
 
   const {
     control,
     handleSubmit,
-    register,
+    // register,
     // watch,
     formState: { errors },
   } = useForm({
@@ -76,7 +69,7 @@ export default function Form() {
     },
   })
 
-  // console.log(watch("email")) // watch input value by passing the name of it
+  // console.log(watch('laboratory')) // watch input value by passing the name of it
 
   const onSubmit = async (formInputs) => {
     console.log(formInputs)
@@ -117,10 +110,6 @@ export default function Form() {
             className="flex-col mx-auto w-3/5 space-y-10"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {/* <input defaultValue="test" {...register("email")} /> */}
-            {/* <input {...register("password", { required: true })} /> */}
-            {/* {errors.exampleRequired && <span>This field is required</span>} */}
-
             <div className="flex-col space-y-3 p-4 border">
               <h4 className="text-center">Information</h4>
               <Controller
@@ -199,6 +188,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -222,6 +212,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -245,6 +236,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -273,6 +265,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -295,7 +288,7 @@ export default function Form() {
                         helperText={errors.motherboard?.message}
                       />
                     )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -319,6 +312,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -341,7 +335,7 @@ export default function Form() {
                         helperText={errors.memory?.message}
                       />
                     )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -365,6 +359,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -388,6 +383,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -411,6 +407,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -434,6 +431,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -457,6 +455,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
@@ -480,6 +479,7 @@ export default function Form() {
                       />
                     )}
                     onChange={(_, newValue) => field.onChange(newValue)}
+                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
                 )}
               />
