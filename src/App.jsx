@@ -11,6 +11,12 @@ import Form from './routes/Form-page.jsx'
 import Equipment from './routes/Table-page.jsx'
 import Login from './routes/Login-page.jsx'
 
+const getFormOptions = async () => {
+  // const { data, error } = await supabase.from('FormOptions').select()
+  const { data } = await supabase.from('FormOptions').select()
+  return data
+}
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,7 +38,7 @@ const router = createBrowserRouter([
       if (!data.session) {
         return redirect('/login')
       }
-      return null
+      return getFormOptions()
     },
   },
   {
