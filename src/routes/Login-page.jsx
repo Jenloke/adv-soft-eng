@@ -63,21 +63,14 @@ export default function LoginForm() {
     event.preventDefault()
     // Handle login logic here
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: 'test@example.com',
-      password: '123456',
+      // email: 'test@example.com',
+      // password: '123456',
+      email: email,
+      password: password,
     })
     console.log(data)
     console.log(error)
     navigate('/')
-    // if (!data.session) {
-    //   console.error(error)
-    //   alert('login error')
-    // } else {
-    //   console.log(data)
-    //   redirect('/')
-    // }
-    // console.log('Email:', email)
-    // console.log('Password:', password)
   }
 
   return (
@@ -94,6 +87,7 @@ export default function LoginForm() {
 
           <form onSubmit={handleSubmit}>
             <TextField
+              required
               label="Email ID"
               fullWidth
               margin="normal"
@@ -101,6 +95,7 @@ export default function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
+              required
               label="Password"
               fullWidth
               margin="normal"
@@ -113,9 +108,9 @@ export default function LoginForm() {
                 Sign in
               </Button>
             </Box>
-            <Typography variant="body2" mt={2} textAlign="center">
+            {/* <Typography variant="body2" mt={2} textAlign="center">
               Forgot password? <a href="#">Click here</a>
-            </Typography>
+            </Typography> */}
           </form>
         </Box>
       </FormSection>
