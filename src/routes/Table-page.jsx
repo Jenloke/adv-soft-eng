@@ -1,7 +1,9 @@
 import Sidebar from '../components/Sidebar.jsx'
-import Searchbar from '../components/Searchbar.jsx'
-import { useState, useEffect, useRef } from 'react'
+// import Searchbar from '../components/Searchbar.jsx'
+import { useState, useEffect } from 'react'
 import supabase from '../utils/supabase.js'
+
+import { useLoaderData } from 'react-router-dom'
 
 import dayjs from 'dayjs'
 
@@ -21,11 +23,9 @@ import {
 } from '@mui/material'
 
 export default function Equipment() {
+  const tabledata = useLoaderData()
+
   const [equipmentList, setEquipmentList] = useState([])
-  // const [currentRange, setCurrentRange] = useState(0)
-  // const [loading, setLoading] = useState(false)
-  // const [hasMore, setHasMore] = useState(true)
-  const cardContentRef = useRef(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +33,7 @@ export default function Equipment() {
         const { data, error } = await supabase
           .from('Equipment')
           .select('*')
-          .eq('location', 'Multimedia Laboratory')
+          .eq('location', 'Cisco Laboratory')
         // .range(currentRange, currentRange + 2)
         console.log(data)
         setEquipmentList(data)
@@ -43,67 +43,6 @@ export default function Equipment() {
     }
     fetchData()
   }, [])
-
-  // useEffect(() => {
-  //   const cardElement = cardContentRef.current
-  //   if (cardElement) {
-  //     cardElement.addEventListener('scroll', handleScroll)
-  //   }
-  //   return () => {
-  //     if (cardElement) {
-  //       cardElement.removeEventListener('scroll', handleScroll)
-  //     }
-  //   }
-  // }, [loading, hasMore])
-
-  // Mock API call to fetch more data
-  // const loadMoreData = () => {
-  //   setCurrentRange(currentRange + 3)
-  //   setLoading(true)
-  //   const fetchNewItems = async () => {
-  //     try {
-  //       const { data, error } = await supabase
-  //         .from('Equipment')
-  //         .select()
-  //         .range(currentRange, currentRange + 2)
-  //       setEquipmentList((prevList) => [...prevList, ...data])
-
-  //       if (equipmentList.length < 3) setHasMore(false)
-  //     } catch (error) {
-  //       console.error('Error fetching data: ', error)
-  //     }
-  //   }
-  //   setTimeout(() => {
-  //     fetchNewItems()
-  //     setLoading(false)
-  //     // Stop loading more after a certain number of items for demo purposes
-  //   }, 1500)
-  // }
-
-  // const handleScroll = () => {
-  //   if (cardContentRef.current) {
-  //     const { scrollTop, scrollHeight, clientHeight } = cardContentRef.current
-  //     if (
-  //       scrollTop + clientHeight >= scrollHeight - 10 &&
-  //       hasMore &&
-  //       !loading
-  //     ) {
-  //       loadMoreData()
-  //     }
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   const cardElement = cardContentRef.current
-  //   if (cardElement) {
-  //     cardElement.addEventListener('scroll', handleScroll)
-  //   }
-  //   return () => {
-  //     if (cardElement) {
-  //       cardElement.removeEventListener('scroll', handleScroll)
-  //     }
-  //   }
-  // }, [loading, hasMore])
 
   const strToDate = (date) => {
     return dayjs(date).format('YYYY-MM-DD')
@@ -131,7 +70,7 @@ export default function Equipment() {
           >
             <CardHeader title="Equipment List" />
             <CardContent
-              ref={cardContentRef}
+              // ref={cardContentRef}
               sx={{ height: '83vh', overflowY: 'auto', padding: 0 }} // Scrollable container
             >
               {/* <Searchbar /> */}
