@@ -17,6 +17,17 @@ const getFormOptions = async () => {
   return data
 }
 
+const getTableData = async () => {
+  try {
+    // const { data, error } = await supabase
+    const { data } = await supabase.from('Equipment').select('*')
+    // .eq('location', 'Cisco Laboratory')
+    return data
+  } catch (error) {
+    console.error('Error fetching data: ', error)
+  }
+}
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -49,7 +60,7 @@ const router = createBrowserRouter([
       if (!data.session) {
         return redirect('/login')
       }
-      return null
+      return getTableData()
     },
   },
   {
