@@ -39,18 +39,11 @@ export default function Sidebar() {
               <NavLink exact to="/form" activeClassName="activeClicked">
                 <CDBSidebarMenuItem icon="user">Forms</CDBSidebarMenuItem>
               </NavLink>
-              {/* <NavLink exact to="/analytics" activeClassName="activeClicked">
-                                <CDBSidebarMenuItem icon="chart-line">Analytics</CDBSidebarMenuItem>
-                            </NavLink> */}
             </CDBSidebarMenu>
           </CDBSidebarContent>
 
           <CDBSidebarFooter style={{ textAlign: 'center' }}>
-            <div
-              style={{
-                padding: '20px 5px',
-              }}
-            >
+            <div className="px-[20px] py-[5px]">
               <NavLink exact to="/login" activeClassName="activeClicked">
                 Account
               </NavLink>
