@@ -11,13 +11,7 @@ import { NavLink } from 'react-router-dom'
 export default function Sidebar() {
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          minHeight: '100vh',
-          overflow: 'scroll initial',
-        }}
-      >
+      <div className="flex min-h-screen overflow-y-[initial]">
         <CDBSidebar textColor="#d1d1d1" backgroundColor="#ff2e2e">
           <CDBSidebarHeader prefix={<i className="fa fa-bars fa-small"></i>}>
             <span
