@@ -1,7 +1,6 @@
 import {
   CDBSidebar,
   CDBSidebarContent,
-  CDBSidebarFooter,
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
@@ -18,7 +17,7 @@ export default function Sidebar() {
           overflow: 'scroll initial',
         }}
       >
-        <CDBSidebar textColor="#d1d1d1" backgroundColor="#ff2e2e">
+        <CDBSidebar textColor="#d1d1d1" backgroundColor="#c71a1a">
           <CDBSidebarHeader prefix={<i className="fa fa-bars fa-small"></i>}>
             <span
               className="text-decoration-none"
@@ -44,18 +43,6 @@ export default function Sidebar() {
                             </NavLink> */}
             </CDBSidebarMenu>
           </CDBSidebarContent>
-
-          <CDBSidebarFooter style={{ textAlign: 'center' }}>
-            <div
-              style={{
-                padding: '20px 5px',
-              }}
-            >
-              <NavLink exact to="/login" activeClassName="activeClicked">
-                Account
-              </NavLink>
-            </div>
-          </CDBSidebarFooter>
         </CDBSidebar>
       </div>
     </>

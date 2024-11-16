@@ -103,390 +103,167 @@ export default function Form() {
     <>
       <div className="flex min-h-screen">
         <Sidebar />
-        <div className="mx-auto py-4">
-          <h1 className="text-center">Add Equipment</h1>
+        <div className="mx-auto py-4 w-full px-4 md:px-10">
+          <h1 className="text-center text-xl md:text-2xl font-bold mb-6">Add Equipment</h1>
 
           <form
-            className="flex-col mx-auto w-3/5 space-y-10"
+            className="space-y-10"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="flex-col space-y-3 p-4 border">
-              <h4 className="text-center">Information</h4>
-              <Controller
-                name="propertyNumber"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Property Number"
-                    error={!!errors.propertyNumber}
-                    helperText={errors.propertyNumber?.message}
-                    fullWidth
-                    // autoFocus
-                  />
-                )}
-              />
-              <Controller
-                name="category"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Category"
-                    error={!!errors.category}
-                    helperText={errors.category?.message}
-                    fullWidth
-                  />
-                )}
-              />
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border rounded-lg">
+              <div className="flex-col space-y-3">
+                <h4 className="text-center text-lg font-semibold">Information</h4>
                 <Controller
-                  name="dateOfAquisition"
+                  name="propertyNumber"
                   control={control}
-                  rules={{
-                    required: 'Input Required',
-                  }}
+                  rules={{ required: 'Input Required' }}
                   render={({ field }) => (
-                    <DatePicker
-                      className="w-full"
-                      label="Select Date"
-                      value={field.value}
-                      onChange={(newValue) => field.onChange(newValue)}
-                      slotProps={{
-                        textField: {
-                          error: !!errors.dateOfAquisition,
-                          helperText: errors.dateOfAquisition?.message,
-                        },
-                      }}
+                    <TextField
+                      {...field}
+                      label="Property Number"
+                      error={!!errors.propertyNumber}
+                      helperText={errors.propertyNumber?.message}
+                      fullWidth
                     />
                   )}
                 />
-              </LocalizationProvider>
-              <Controller
-                name="laboratory"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['LOCATION']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Laboratory"
-                        error={!!errors.laboratory}
-                        helperText={errors.laboratory?.message}
+                <Controller
+                  name="category"
+                  control={control}
+                  rules={{ required: 'Input Required' }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Category"
+                      error={!!errors.category}
+                      helperText={errors.category?.message}
+                      fullWidth
+                    />
+                  )}
+                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <Controller
+                    name="dateOfAquisition"
+                    control={control}
+                    rules={{ required: 'Input Required' }}
+                    render={({ field }) => (
+                      <DatePicker
+                        className="w-full"
+                        label="Select Date"
+                        value={field.value}
+                        onChange={(newValue) => field.onChange(newValue)}
+                        slotProps={{
+                          textField: {
+                            error: !!errors.dateOfAquisition,
+                            helperText: errors.dateOfAquisition?.message,
+                          },
+                        }}
                       />
                     )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
-                )}
-              />
-              <Controller
-                name="campus"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['CAMPUS']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Campus"
-                        error={!!errors.campus}
-                        helperText={errors.campus?.message}
-                      />
-                    )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
-              <Controller
-                name="labtech"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['LAB TECH']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="ICT Technician In Charge"
-                        error={!!errors.labtech}
-                        helperText={errors.labtech?.message}
-                      />
-                    )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
-            </div>
+                </LocalizationProvider>
+                <Controller
+                  name="laboratory"
+                  control={control}
+                  rules={{ required: 'Input Required' }}
+                  render={({ field }) => (
+                    <Autocomplete
+                      {...field}
+                      freeSolo
+                      options={options['LOCATION']}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Laboratory"
+                          error={!!errors.laboratory}
+                          helperText={errors.laboratory?.message}
+                        />
+                      )}
+                      onChange={(_, newValue) => field.onChange(newValue)}
+                      onInputChange={(_, newValue) => field.onChange(newValue)}
+                    />
+                  )}
+                />
+                <Controller
+                  name="campus"
+                  control={control}
+                  rules={{ required: 'Input Required' }}
+                  render={({ field }) => (
+                    <Autocomplete
+                      {...field}
+                      freeSolo
+                      options={options['CAMPUS']}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Campus"
+                          error={!!errors.campus}
+                          helperText={errors.campus?.message}
+                        />
+                      )}
+                      onChange={(_, newValue) => field.onChange(newValue)}
+                      onInputChange={(_, newValue) => field.onChange(newValue)}
+                    />
+                  )}
+                />
+                <Controller
+                  name="labtech"
+                  control={control}
+                  rules={{ required: 'Input Required' }}
+                  render={({ field }) => (
+                    <Autocomplete
+                      {...field}
+                      freeSolo
+                      options={options['LAB TECH']}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="ICT Technician In Charge"
+                          error={!!errors.labtech}
+                          helperText={errors.labtech?.message}
+                        />
+                      )}
+                      onChange={(_, newValue) => field.onChange(newValue)}
+                      onInputChange={(_, newValue) => field.onChange(newValue)}
+                    />
+                  )}
+                />
+              </div>
 
-            <div className="flex-col space-y-3 p-4 border">
-              <h4 className="text-center">ICT Equipment Specification</h4>
-
-              <Controller
-                name="processor"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['PROCESSOR']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Processor"
-                        error={!!errors.processor}
-                        helperText={errors.processor?.message}
+              <div className="flex-col space-y-3">
+                <h4 className="text-center text-lg font-semibold mb-3">ICT Equipment Specification</h4>
+                {['processor', 'motherboard', 'hdd', 'memory', 'video Card', 'display', 'optical Drive', 'casing', 'mouse', 'keyboard'].map((spec) => (
+                  <Controller
+                    key={spec}
+                    name={spec}
+                    control={control}
+                    rules={{ required: 'Input Required' }}
+                    render={({ field }) => (
+                      <Autocomplete
+                        {...field}
+                        freeSolo
+                        options={options[spec.toUpperCase()]}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={spec.charAt(0).toUpperCase() + spec.slice(1)}
+                            error={!!errors[spec]}
+                            helperText={errors[spec]?.message}
+                          />
+                        )}
+                        onChange={(_, newValue) => field.onChange(newValue)}
+                        onInputChange={(_, newValue) => field.onChange(newValue)}
                       />
                     )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
                   />
-                )}
-              />
-              <Controller
-                name="motherboard"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['MOTHERBOARD']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Motherboard"
-                        error={!!errors.motherboard}
-                        helperText={errors.motherboard?.message}
-                      />
-                    )}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
-              <Controller
-                name="hdd"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['HDD']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="HDD"
-                        error={!!errors.hdd}
-                        helperText={errors.hdd?.message}
-                      />
-                    )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
-              <Controller
-                name="memory"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['MEMORY']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Memory"
-                        error={!!errors.memory}
-                        helperText={errors.memory?.message}
-                      />
-                    )}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
-              <Controller
-                name="videoCard"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['VIDEO CARD']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Video Card"
-                        error={!!errors.videoCard}
-                        helperText={errors.videoCard?.message}
-                      />
-                    )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
-              <Controller
-                name="display"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['DISPLAY']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Display"
-                        error={!!errors.display}
-                        helperText={errors.display?.message}
-                      />
-                    )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
-              <Controller
-                name="opticalDrive"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['OPTICAL DRIVE']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Optical Drive"
-                        error={!!errors.opticalDrive}
-                        helperText={errors.opticalDrive?.message}
-                      />
-                    )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
-              <Controller
-                name="casing"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['CASING']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Casing"
-                        error={!!errors.casing}
-                        helperText={errors.casing?.message}
-                      />
-                    )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
-              <Controller
-                name="mouse"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['MOUSE']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Mouse"
-                        error={!!errors.mouse}
-                        helperText={errors.mouse?.message}
-                      />
-                    )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
-              <Controller
-                name="keyboard"
-                control={control}
-                rules={{
-                  required: 'Input Required',
-                }}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    freeSolo
-                    options={options['KEYBOARD']}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Keyboard"
-                        error={!!errors.keyboard}
-                        helperText={errors.keyboard?.message}
-                      />
-                    )}
-                    onChange={(_, newValue) => field.onChange(newValue)}
-                    onInputChange={(_, newValue) => field.onChange(newValue)}
-                  />
-                )}
-              />
+                ))}
+              </div>
             </div>
-            <Button type="submit" variant="contained">
-              ADD Equipment
-            </Button>
+            <div className="flex justify-end">
+              <Button type="submit" variant="contained" className="w-full md:w-auto">
+                ADD Equipment
+              </Button>
+            </div>
           </form>
         </div>
       </div>
