@@ -8,6 +8,7 @@ import supabase from './utils/supabase.js'
 import Error from './routes/Error-page.jsx'
 import Home from './routes/Home-page.jsx'
 import Form from './routes/Form-page.jsx'
+import EditEquipment from './routes/Edit-Equipment-page.jsx'
 import Equipment from './routes/Table-page.jsx'
 import Login from './routes/Login-page.jsx'
 
@@ -22,6 +23,17 @@ const getTableData = async () => {
     // const { data, error } = await supabase
     const { data } = await supabase.from('Equipment').select('*')
     // .eq('location', 'Cisco Laboratory')
+    return data
+  } catch (error) {
+    console.error('Error fetching data: ', error)
+  }
+}
+
+const getEquipmentData = async (id) => {
+  try {
+    // const { data, error } = await supabase
+    const { data } = await supabase.from('Equipment').select('*').eq('id', id)
+    console.log(data)
     return data
   } catch (error) {
     console.error('Error fetching data: ', error)
@@ -61,6 +73,17 @@ const router = createBrowserRouter([
         return redirect('/login')
       }
       return getTableData()
+    },
+  },
+  {
+    path: '/equipment/:id',
+    element: <EditEquipment />,
+    loader: async ({ params }) => {
+      const { data } = await supabase.auth.getSession()
+      if (!data.session) {
+        return redirect('/login')
+      }
+      return getEquipmentData(params.id)
     },
   },
   {
