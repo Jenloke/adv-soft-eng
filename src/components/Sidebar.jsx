@@ -1,7 +1,6 @@
 import {
   CDBSidebar,
   CDBSidebarContent,
-  CDBSidebarFooter,
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
@@ -11,8 +10,14 @@ import { NavLink } from 'react-router-dom'
 export default function Sidebar() {
   return (
     <>
-      <div className="flex min-h-screen overflow-y-[initial]">
-        <CDBSidebar textColor="#d1d1d1" backgroundColor="#ff2e2e">
+      <div
+        style={{
+          display: 'flex',
+          minHeight: '100vh',
+          overflow: 'scroll initial',
+        }}
+      >
+        <CDBSidebar textColor="#d1d1d1" backgroundColor="#c71a1a">
           <CDBSidebarHeader prefix={<i className="fa fa-bars fa-small"></i>}>
             <span
               className="text-decoration-none"
