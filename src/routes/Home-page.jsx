@@ -14,37 +14,10 @@ export default function Home() {
         <Sidebar />
         {/* <div style={{ flexGrow: 1, padding: '1rem' }}> */}
         <div className="p-4">
+          <h1>GLEAM</h1>
           <h1>ICT MANAGEMENT SYSTEM</h1>
 
           <Stack gap={3}>
-            <Button
-              onClick={async () => {
-                const { data, error } = await supabase.auth.signInWithPassword({
-                  email: 'test@example.com',
-                  password: '123456',
-                })
-                if (error) console.error(error)
-                console.log(data)
-              }}
-              variant="contained"
-            >
-              LOGIN
-            </Button>
-            <Button
-              onClick={async () => {
-                const { data, error } = await supabase.auth.getSession()
-                if (data.session == null) {
-                  console.log('no user')
-                  console.log(error)
-                } else {
-                  console.log(data)
-                }
-                // if (error) console.error(error)
-              }}
-              variant="contained"
-            >
-              Retrieve User
-            </Button>
             <Button
               onClick={async () => {
                 const { error } = await supabase.auth.signOut()
