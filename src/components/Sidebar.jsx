@@ -32,7 +32,7 @@ export default function Sidebar() {
               <NavLink exact to="/" activeClassName="activeClicked">
                 <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
               </NavLink>
-              <NavLink exact to="/table" activeClassName="activeClicked">
+              <NavLink exact to="/labs" activeClassName="activeClicked">
                 <CDBSidebarMenuItem icon="table">Tables</CDBSidebarMenuItem>
               </NavLink>
               <NavLink exact to="/form" activeClassName="activeClicked">
