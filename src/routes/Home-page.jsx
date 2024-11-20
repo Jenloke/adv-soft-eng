@@ -12,7 +12,6 @@ export default function Home() {
     <>
       <div className="flex min-h-screen">
         <Sidebar />
-        {/* <div style={{ flexGrow: 1, padding: '1rem' }}> */}
         <div className="p-4">
           <h1>GLEAM</h1>
           <h1>ICT MANAGEMENT SYSTEM</h1>
