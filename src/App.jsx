@@ -12,12 +12,12 @@ import EditEquipment from './routes/Edit-Equipment-page.jsx'
 import Equipment from './routes/Table-page.jsx'
 import Login from './routes/Login-page.jsx'
 
+// FETCH FROM SUPA BASE
 const getFormOptions = async () => {
   // const { data, error } = await supabase.from('FormOptions').select()
   const { data } = await supabase.from('FormOptions').select()
   return data
 }
-
 const getTableData = async () => {
   try {
     // const { data, error } = await supabase
@@ -28,7 +28,27 @@ const getTableData = async () => {
     console.error('Error fetching data: ', error)
   }
 }
-
+const getLabEquipments = async (id) => {
+  const labs = {
+    sl1: 'Software Laboratory I',
+    sl2: 'Software Laboratory II',
+    sl3: 'Software Laboratory III',
+    cl: 'Cisco Laboratory',
+    ml: 'Multimedia Laboratory',
+    itl: 'Info Tech Laboratory',
+  }
+  try {
+    // const { data, error } = await supabase
+    const { data } = await supabase
+      .from('Equipment')
+      .select('*')
+      .eq('location', labs[id])
+    // console.log(data)
+    return data
+  } catch (error) {
+    console.error('Error fetching data: ', error)
+  }
+}
 const getEquipmentData = async (id) => {
   try {
     // const { data, error } = await supabase
@@ -40,6 +60,7 @@ const getEquipmentData = async (id) => {
   }
 }
 
+// ROUTES
 const router = createBrowserRouter([
   {
     path: '/',
@@ -65,7 +86,7 @@ const router = createBrowserRouter([
     },
   },
   {
-    path: '/table',
+    path: '/labs',
     element: <Equipment />,
     loader: async () => {
       const { data } = await supabase.auth.getSession()
@@ -73,6 +94,17 @@ const router = createBrowserRouter([
         return redirect('/login')
       }
       return getTableData()
+    },
+  },
+  {
+    path: '/lab/:labID',
+    element: <Equipment />,
+    loader: async ({ params }) => {
+      const { data } = await supabase.auth.getSession()
+      if (!data.session) {
+        return redirect('/login')
+      }
+      return getLabEquipments(params.labID)
     },
   },
   {

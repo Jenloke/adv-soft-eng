@@ -1,16 +1,14 @@
-import Sidebar from '../components/Sidebar.jsx'
-// import Searchbar from '../components/Searchbar.jsx'
-import { useState, useEffect } from 'react'
-import supabase from '../utils/supabase.js'
-
-import { useLoaderData } from 'react-router-dom'
-
+import { useLoaderData, useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
 
+import Sidebar from '../components/Sidebar.jsx'
+
 import {
+  Button,
   Card,
   CardHeader,
   CardContent,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -22,45 +20,50 @@ import {
   Paper,
 } from '@mui/material'
 
+const strToDate = (date) => {
+  return dayjs(date).format('YYYY-MM-DD')
+}
+
+const labs = {
+  sl1: 'Software Laboratory I',
+  sl2: 'Software Laboratory II',
+  sl3: 'Software Laboratory III',
+  cl: 'Cisco Laboratory',
+  ml: 'Multimedia Laboratory',
+  itl: 'Info Tech Laboratory',
+}
+
 export default function Equipment() {
+  const navigate = useNavigate()
   const tabledata = useLoaderData()
-
-  const [equipmentList, setEquipmentList] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('Equipment')
-          .select('*')
-          .eq('location', 'Cisco Laboratory')
-        // .range(currentRange, currentRange + 2)
-        console.log(data)
-        setEquipmentList(data)
-      } catch (error) {
-        console.error('Error fetching data: ', error)
-      }
-    }
-    fetchData()
-  }, [])
-
-  const strToDate = (date) => {
-    return dayjs(date).format('YYYY-MM-DD')
-  }
 
   return (
     <>
       <div className="flex min-h-[100vh] bg-[#e6e6e6]">
         <Sidebar />
         <div style={{ flexGrow: 1, padding: '1rem' }}>
-          <div>
-            <button onClick={() => alert(0)}>CL</button>
-            <button onClick={() => alert(0)}>ML</button>
-            <button onClick={() => alert(0)}>SL1</button>
-            <button onClick={() => alert(0)}>SL2</button>
-            <button onClick={() => alert(0)}>SL3</button>
-            <button onClick={() => alert(0)}>ITL</button>
-          </div>
+          <Stack gap={1}>
+            <Button
+              onClick={() => {
+                navigate('/labs')
+              }}
+              variant="contained"
+            >
+              ALL
+            </Button>
+            {Object.entries(labs).map(([key, value]) => (
+              <Button
+                key={key}
+                onClick={() => {
+                  navigate(`/lab/${key}`)
+                }}
+                variant="contained"
+                // style={{ margin: '5px' }} // Add some spacing for better layout
+              >
+                {value}
+              </Button>
+            ))}
+          </Stack>
           <Card
             style={{
               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
@@ -81,16 +84,17 @@ export default function Equipment() {
                       <TableCell align="center">Item No</TableCell>
                       <TableCell align="center">Property No</TableCell>
                       <TableCell align="center">Category</TableCell>
-                      <TableCell>Specification</TableCell>
+                      <TableCell align="center">Specification</TableCell>
                       <TableCell align="center">Date of Acquisition</TableCell>
                       <TableCell align="center">Status</TableCell>
                       <TableCell align="center">Location</TableCell>
                       <TableCell align="center">Campus</TableCell>
                       <TableCell align="center">Lab Tech</TableCell>
+                      <TableCell align="center">Edit</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {equipmentList.map((item, index) => (
+                    {tabledata.map((item, index) => (
                       <TableRow key={index}>
                         <TableCell align="center">{index + 1}</TableCell>
                         <TableCell align="center">
@@ -121,6 +125,17 @@ export default function Equipment() {
                         <TableCell align="center">{item?.location}</TableCell>
                         <TableCell align="center">{item?.campus}</TableCell>
                         <TableCell align="center">{item?.labTech}</TableCell>
+                        <TableCell align="center">
+                          <Button
+                            onClick={() => {
+                              console.log(item.id)
+                              navigate(`/equipment/${item.id}`)
+                            }}
+                            variant="contained"
+                          >
+                            Edit
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
