@@ -31,7 +31,21 @@ const labs = {
   cl: 'Cisco Laboratory',
   ml: 'Multimedia Laboratory',
   itl: 'Info Tech Laboratory',
+  storage: 'Storage',
 }
+
+const columnNames = [
+  'Item No',
+  'Property No',
+  'Category',
+  'Specification',
+  'Date of Acquisition',
+  'Status',
+  'Location',
+  'Campus',
+  'Lab Tech',
+  'Functions',
+]
 
 export default function Equipment() {
   const navigate = useNavigate()
@@ -81,16 +95,11 @@ export default function Equipment() {
                 <Table stickyHeader>
                   <TableHead>
                     <TableRow>
-                      <TableCell align="center">Item No</TableCell>
-                      <TableCell align="center">Property No</TableCell>
-                      <TableCell align="center">Category</TableCell>
-                      <TableCell align="center">Specification</TableCell>
-                      <TableCell align="center">Date of Acquisition</TableCell>
-                      <TableCell align="center">Status</TableCell>
-                      <TableCell align="center">Location</TableCell>
-                      <TableCell align="center">Campus</TableCell>
-                      <TableCell align="center">Lab Tech</TableCell>
-                      <TableCell align="center">Edit</TableCell>
+                      {columnNames.map((column, index) => (
+                        <TableCell key={index} align="center">
+                          {column}
+                        </TableCell>
+                      ))}
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -126,15 +135,25 @@ export default function Equipment() {
                         <TableCell align="center">{item?.campus}</TableCell>
                         <TableCell align="center">{item?.labTech}</TableCell>
                         <TableCell align="center">
-                          <Button
-                            onClick={() => {
-                              console.log(item.id)
-                              navigate(`/equipment/${item.id}`)
-                            }}
-                            variant="contained"
-                          >
-                            Edit
-                          </Button>
+                          <Stack gap={0.75}>
+                            <Button
+                              onClick={() => {
+                                navigate(`/equipment/${item.id}`)
+                              }}
+                              variant="contained"
+                            >
+                              Edit
+                            </Button>
+                            <Button onClick={() => {}} variant="contained">
+                              Change Status
+                            </Button>
+                            <Button onClick={() => {}} variant="contained">
+                              Change Laboratory Technician
+                            </Button>
+                            <Button onClick={() => {}} variant="contained">
+                              Change Location
+                            </Button>
+                          </Stack>
                         </TableCell>
                       </TableRow>
                     ))}
