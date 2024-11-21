@@ -3,6 +3,8 @@ import { useLoaderData, useNavigate } from 'react-router-dom'
 import Sidebar from '../components/Sidebar'
 import dayjs from 'dayjs'
 
+import { Button, Stack } from '@mui/material'
+
 const strToDate = (date) => {
   return dayjs(date).format('YYYY-MM-DD')
 }
@@ -38,6 +40,18 @@ export default function EditEquipment() {
         <div>Campus: {equipmentData.campus}</div>
         <div>Lab Technician: {equipmentData.labTech}</div>
       </div>
+
+      <Stack gap={0.5}>
+        <Button onClick={() => {}} variant="contained">
+          Change Status
+        </Button>
+        <Button onClick={() => {}} variant="contained">
+          Change Laboratory Technician
+        </Button>
+        <Button onClick={() => {}} variant="contained">
+          Change Location
+        </Button>
+      </Stack>
     </div>
   )
 }
