@@ -11,7 +11,7 @@ export default defineConfig(({ command }) =>{
     base: "/", 
   }
 
-  if (command !== 'deploy') {
+  if (command === 'deploy') {
     config.base = '/adv-soft-eng/';
   }
 
