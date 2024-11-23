@@ -61,75 +61,78 @@ const getEquipmentData = async (id) => {
 }
 
 // ROUTES
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />,
-    errorElement: <Error />,
-    loader: async () => {
-      const { data } = await supabase.auth.getSession()
-      if (!data.session) {
-        return redirect('/login')
-      }
-      return null
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <Home />,
+      errorElement: <Error />,
+      loader: async () => {
+        const { data } = await supabase.auth.getSession()
+        if (!data.session) {
+          return redirect('/login')
+        }
+        return null
+      },
     },
-  },
-  {
-    path: '/form',
-    element: <Form />,
-    loader: async () => {
-      const { data } = await supabase.auth.getSession()
-      if (!data.session) {
-        return redirect('/login')
-      }
-      return getFormOptions()
+    {
+      path: '/form',
+      element: <Form />,
+      loader: async () => {
+        const { data } = await supabase.auth.getSession()
+        if (!data.session) {
+          return redirect('/login')
+        }
+        return getFormOptions()
+      },
     },
-  },
-  {
-    path: '/labs',
-    element: <Equipment />,
-    loader: async () => {
-      const { data } = await supabase.auth.getSession()
-      if (!data.session) {
-        return redirect('/login')
-      }
-      return getTableData()
+    {
+      path: '/labs',
+      element: <Equipment />,
+      loader: async () => {
+        const { data } = await supabase.auth.getSession()
+        if (!data.session) {
+          return redirect('/login')
+        }
+        return getTableData()
+      },
     },
-  },
-  {
-    path: '/lab/:labID',
-    element: <Equipment />,
-    loader: async ({ params }) => {
-      const { data } = await supabase.auth.getSession()
-      if (!data.session) {
-        return redirect('/login')
-      }
-      return getLabEquipments(params.labID)
+    {
+      path: '/lab/:labID',
+      element: <Equipment />,
+      loader: async ({ params }) => {
+        const { data } = await supabase.auth.getSession()
+        if (!data.session) {
+          return redirect('/login')
+        }
+        return getLabEquipments(params.labID)
+      },
     },
-  },
-  {
-    path: '/equipment/:id',
-    element: <EditEquipment />,
-    loader: async ({ params }) => {
-      const { data } = await supabase.auth.getSession()
-      if (!data.session) {
-        return redirect('/login')
-      }
-      return getEquipmentData(params.id)
+    {
+      path: '/equipment/:id',
+      element: <EditEquipment />,
+      loader: async ({ params }) => {
+        const { data } = await supabase.auth.getSession()
+        if (!data.session) {
+          return redirect('/login')
+        }
+        return getEquipmentData(params.id)
+      },
     },
-  },
-  {
-    path: '/login',
-    element: <Login />,
-    loader: async () => {
-      const { data } = await supabase.auth.getSession()
-      if (data.session) {
-        return redirect('/')
-      }
-      return null
+    {
+      path: '/login',
+      element: <Login />,
+      loader: async () => {
+        const { data } = await supabase.auth.getSession()
+        if (data.session) {
+          return redirect('/')
+        }
+        return null
+      },
     },
-  },
-])
+  ],
+  { basename: import.meta.env.DEV ? '/' : '/adv-soft-eng/' }
+)
 
 export default function App() {
   return (
