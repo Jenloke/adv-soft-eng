@@ -112,14 +112,14 @@ export default function Equipment() {
           <Card
             style={{
               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-              margin: '1.5rem 1rem 1rem 1.75rem',
-              minHeight: '90vh',
+              margin: '0',
+              padding: '0.5rem 0',
             }}
           >
             <CardHeader title="Equipment List" />
             <CardContent
               // ref={cardContentRef}
-              sx={{ height: '83vh', overflowY: 'auto', padding: 0 }} // Scrollable container
+              sx={{ height: '79vh', overflowY: 'auto', padding: '0' }} // Scrollable container
             >
               {/* <Searchbar /> */}
               <TableContainer component={Paper}>
