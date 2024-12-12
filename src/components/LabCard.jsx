@@ -16,11 +16,22 @@ export default function LabCard({
   numOfNotWorking,
 }) {
   return (
-    <Card sx={{ textAlign: 'center' }}>
+    <Card
+      sx={{
+        backgroundColor: '#f7f7f7',
+        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
+        borderRadius: '8px',
+        padding: 2,
+        textAlign: 'center',
+      }}>
       <CardContent>
-        <Typography>Laboratory {labNum}</Typography>
-        <Typography>{labName}</Typography>
-        <Stack direction="row" gap={2}>
+        <Typography variant="h6">Laboratory {labNum}</Typography>
+        <Typography
+          sx={{
+            marginBottom: 2,
+          }}>{labName}
+        </Typography>
+        <Stack direction="row" gap={4}>
           <Box>
             <Typography>FUNCTIONAL</Typography>
             <Typography>{numOfFunctional}</Typography>
@@ -32,7 +43,26 @@ export default function LabCard({
         </Stack>
       </CardContent>
       <CardActions>
-        <Button>View in Table</Button>
+      <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Button
+            sx={{
+            backgroundColor: 'white',
+            color: 'black',
+            padding: '3px 8px',
+            fontSize: '0.8rem',
+            '&:hover': {
+              backgroundColor: '#f0f0f0',
+            },
+            }}>
+              View in Table
+          </Button>
+        </Box>
       </CardActions>
     </Card>
   )

@@ -1,7 +1,7 @@
 import Sidebar from '../components/Sidebar.jsx'
 import LabCard from '../components/LabCard.jsx'
 
-import { Button, Stack } from '@mui/material'
+import { Button, Stack, Typography, Box} from '@mui/material'
 
 import supabase from '../utils/supabase.js'
 import { useNavigate } from 'react-router-dom'
@@ -13,12 +13,29 @@ export default function Home() {
     <>
       <div className="flex min-h-screen">
         <Sidebar />
-        <div className="p-4">
-          <h1>GLEAM</h1>
-          <h1>ICT MANAGEMENT SYSTEM</h1>
+        <div className="p-4 flex-1 flex flex-col items-center">
+          <Typography
+              variant="h3"
+              sx={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                marginBottom: 2,
+              }}
+            >
+              GLEAM
+          </Typography>
+          <Typography
+              variant="h5"
+              sx={{
+                textAlign: 'center',
+                marginBottom: 4,
+              }}
+            >
+              ICT MANAGEMENT SYSTEM
+          </Typography>
 
           <Stack gap={5}>
-            <Stack direction="row" gap={2}>
+            <Stack direction="row" gap={5}>
               <LabCard
                 labNum={1}
                 labName={'Cisco Laboratoy'}
@@ -38,7 +55,7 @@ export default function Home() {
                 numOfNotWorking={0}
               />
             </Stack>
-            <Stack direction="row" gap={2}>
+            <Stack direction="row" gap={5}>
               <LabCard
                 labNum={4}
                 labName={'Software Laboratory II'}
@@ -53,7 +70,7 @@ export default function Home() {
               />
               <LabCard
                 labNum={6}
-                labName={'Infor Tech Laboratory'}
+                labName={'InfoTech Laboratory'}
                 numOfFunctional={30}
                 numOfNotWorking={0}
               />
@@ -77,6 +94,8 @@ export default function Home() {
               '&:hover': {
                 backgroundColor: '#f0f0f0', // Slightly darker white on hover
               },
+              marginTop: 5,
+              alignSelf: "flex-start"
             }}
           >
             Signout

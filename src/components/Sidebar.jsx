@@ -38,9 +38,6 @@ export default function Sidebar() {
               <NavLink exact to="/form" className="">
                 <CDBSidebarMenuItem icon="user">Forms</CDBSidebarMenuItem>
               </NavLink>
-              <NavLink exact to="/login" className="">
-                <CDBSidebarMenuItem icon="user">Account</CDBSidebarMenuItem>
-              </NavLink>
             </CDBSidebarMenu>
           </CDBSidebarContent>
         </CDBSidebar>
