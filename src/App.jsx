@@ -22,7 +22,6 @@ const getTableData = async () => {
   try {
     // const { data, error } = await supabase
     const { data } = await supabase.from('Equipment').select('*')
-    // .eq('location', 'Cisco Laboratory')
     return data
   } catch (error) {
     console.error('Error fetching data: ', error)
@@ -59,6 +58,36 @@ const getEquipmentData = async (id) => {
     console.error('Error fetching data: ', error)
   }
 }
+const getLabData = async () => {
+  try {
+    const { data } = await supabase.from('Equipment').select('status, location')
+    // console.log(data)
+
+    const normalizedData = data.map((item) => ({
+      status: item.status.trim(),
+      location: item.location.trim(),
+    }))
+
+    // Reduce to group by location and count statuses
+    const counts = normalizedData.reduce((acc, item) => {
+      const location = item.location
+      const statusKey =
+        item.status === 'Functional' ? 'Functional' : 'Not Working'
+
+      if (!acc[location]) {
+        acc[location] = { Functional: 0, NotWorking: 0 }
+      }
+      acc[location][statusKey]++
+      return acc
+    }, {})
+
+    console.log(counts)
+
+    return counts
+  } catch (error) {
+    console.error('Error fetching data: ', error)
+  }
+}
 
 // ROUTES
 const router = createBrowserRouter(
@@ -72,7 +101,7 @@ const router = createBrowserRouter(
         if (!data.session) {
           return redirect('/login')
         }
-        return null
+        return getLabData()
       },
     },
     {
