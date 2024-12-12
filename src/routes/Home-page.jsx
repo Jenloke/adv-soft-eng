@@ -3,7 +3,11 @@ import LabCard from '../components/LabCard.jsx'
 
 import { Stack, Typography } from '@mui/material'
 
+import { useLoaderData } from 'react-router-dom'
+
 export default function Home() {
+  const data = useLoaderData()
+
   return (
     <>
       <div className="flex min-h-screen">
@@ -34,40 +38,40 @@ export default function Home() {
               <LabCard
                 labNum={1}
                 labName={'Cisco Laboratoy'}
-                numOfFunctional={30}
-                numOfNotWorking={0}
+                numOfFunctional={data['Cisco Laboratory']['Functional']}
+                numOfNotWorking={data['Cisco Laboratory']['NotWorking']}
               />
               <LabCard
                 labNum={2}
                 labName={'Multimedia Laboratory'}
-                numOfFunctional={30}
-                numOfNotWorking={0}
+                numOfFunctional={data['Multimedia Laboratory']['Functional']}
+                numOfNotWorking={data['Multimedia Laboratory']['NotWorking']}
               />
               <LabCard
                 labNum={3}
                 labName={'Software Laboratory I'}
-                numOfFunctional={30}
-                numOfNotWorking={0}
+                numOfFunctional={data['Software Laboratory I']['Functional']}
+                numOfNotWorking={data['Software Laboratory I']['NotWorking']}
               />
             </Stack>
             <Stack direction="row" gap={5}>
               <LabCard
                 labNum={4}
                 labName={'Software Laboratory II'}
-                numOfFunctional={30}
-                numOfNotWorking={0}
+                numOfFunctional={data['Software Laboratory II']['Functional']}
+                numOfNotWorking={data['Software Laboratory II']['NotWorking']}
               />
               <LabCard
                 labNum={5}
                 labName={'Software Laboratory III'}
-                numOfFunctional={30}
-                numOfNotWorking={0}
+                numOfFunctional={data['Software Laboratory III']['Functional']}
+                numOfNotWorking={data['Software Laboratory III']['NotWorking']}
               />
               <LabCard
                 labNum={6}
-                labName={'InfoTech Laboratory'}
-                numOfFunctional={30}
-                numOfNotWorking={0}
+                labName={'Info Tech Laboratory'}
+                numOfFunctional={data['Info Tech Laboratory']['Functional']}
+                numOfNotWorking={data['Info Tech Laboratory']['NotWorking']}
               />
             </Stack>
           </Stack>
