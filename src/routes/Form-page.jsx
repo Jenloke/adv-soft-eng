@@ -104,15 +104,16 @@ export default function Form() {
       <div className="flex min-h-screen">
         <Sidebar />
         <div className="mx-auto py-4 w-full px-4 md:px-10">
-          <h1 className="text-center text-xl md:text-2xl font-bold mb-6">Add Equipment</h1>
+          <h1 className="text-center text-xl md:text-2xl font-bold mb-6">
+            Add Equipment
+          </h1>
 
-          <form
-            className="space-y-10"
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <form className="space-y-10" onSubmit={handleSubmit(onSubmit)}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border rounded-lg">
               <div className="flex-col space-y-3">
-                <h4 className="text-center text-lg font-semibold">Information</h4>
+                <h4 className="text-center text-lg font-semibold">
+                  Information
+                </h4>
                 <Controller
                   name="propertyNumber"
                   control={control}
@@ -231,8 +232,21 @@ export default function Form() {
               </div>
 
               <div className="flex-col space-y-3">
-                <h4 className="text-center text-lg font-semibold mb-3">ICT Equipment Specification</h4>
-                {['processor', 'motherboard', 'hdd', 'memory', 'video Card', 'display', 'optical Drive', 'casing', 'mouse', 'keyboard'].map((spec) => (
+                <h4 className="text-center text-lg font-semibold mb-3">
+                  ICT Equipment Specification
+                </h4>
+                {[
+                  'processor',
+                  'motherboard',
+                  'HDD',
+                  'memory',
+                  'video Card',
+                  'display',
+                  'optical Drive',
+                  'casing',
+                  'mouse',
+                  'keyboard',
+                ].map((spec) => (
                   <Controller
                     key={spec}
                     name={spec}
@@ -252,7 +266,9 @@ export default function Form() {
                           />
                         )}
                         onChange={(_, newValue) => field.onChange(newValue)}
-                        onInputChange={(_, newValue) => field.onChange(newValue)}
+                        onInputChange={(_, newValue) =>
+                          field.onChange(newValue)
+                        }
                       />
                     )}
                   />
@@ -260,18 +276,22 @@ export default function Form() {
               </div>
             </div>
             <div className="flex justify-end">
-              <Button type="submit" variant="contained" className="w-full md:w-auto"
-              sx={{
-                backgroundColor: 'white',
-                color: 'black',
-                borderRadius: '20px', // Rounded borders
-                border: '1px solid #000', // Light gray border
-                padding: '3px 12px',
-                fontSize: '0.9rem',
-                '&:hover': {
-                  backgroundColor: '#f0f0f0', // Slightly darker white on hover
-                },
-              }}>
+              <Button
+                type="submit"
+                variant="contained"
+                className="w-full md:w-auto"
+                sx={{
+                  backgroundColor: 'white',
+                  color: 'black',
+                  borderRadius: '20px', // Rounded borders
+                  border: '1px solid #000', // Light gray border
+                  padding: '3px 12px',
+                  fontSize: '0.9rem',
+                  '&:hover': {
+                    backgroundColor: '#f0f0f0', // Slightly darker white on hover
+                  },
+                }}
+              >
                 ADD Equipment
               </Button>
             </div>
