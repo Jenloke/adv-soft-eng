@@ -1,37 +1,32 @@
 import Sidebar from '../components/Sidebar.jsx'
 import LabCard from '../components/LabCard.jsx'
 
-import { Button, Stack, Typography, Box} from '@mui/material'
-
-import supabase from '../utils/supabase.js'
-import { useNavigate } from 'react-router-dom'
+import { Stack, Typography } from '@mui/material'
 
 export default function Home() {
-  const navigate = useNavigate()
-
   return (
     <>
       <div className="flex min-h-screen">
         <Sidebar />
         <div className="p-4 flex-1 flex flex-col items-center">
           <Typography
-              variant="h3"
-              sx={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-                marginBottom: 2,
-              }}
-            >
-              GLEAM
+            variant="h3"
+            sx={{
+              textAlign: 'center',
+              fontWeight: 'bold',
+              marginBottom: 2,
+            }}
+          >
+            GLEAM
           </Typography>
           <Typography
-              variant="h5"
-              sx={{
-                textAlign: 'center',
-                marginBottom: 4,
-              }}
-            >
-              ICT MANAGEMENT SYSTEM
+            variant="h5"
+            sx={{
+              textAlign: 'center',
+              marginBottom: 4,
+            }}
+          >
+            ICT MANAGEMENT SYSTEM
           </Typography>
 
           <Stack gap={5}>
@@ -76,30 +71,6 @@ export default function Home() {
               />
             </Stack>
           </Stack>
-
-          <Button
-            onClick={async () => {
-              const { error } = await supabase.auth.signOut()
-              if (error) console.log(error)
-              navigate('/login')
-            }}
-            variant="contained"
-            sx={{
-              backgroundColor: 'white',
-              color: 'black',
-              borderRadius: '20px', // Rounded borders
-              border: '1px solid #000', // Light gray border
-              padding: '3px 8px',
-              fontSize: '0.8rem',
-              '&:hover': {
-                backgroundColor: '#f0f0f0', // Slightly darker white on hover
-              },
-              marginTop: 5,
-              alignSelf: "flex-start"
-            }}
-          >
-            Signout
-          </Button>
         </div>
       </div>
     </>
