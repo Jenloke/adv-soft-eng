@@ -56,13 +56,16 @@ export default function Equipment() {
       <div className="flex min-h-[100vh] bg-[#e6e6e6]">
         <Sidebar />
         <div style={{ flexGrow: 1, padding: '1rem' }}>
-          <Stack direction="row" spacing={2} 
-          sx={{ 
-            width: '90%', // Only takes up the space it needs
-            marginTop: "2rem",
-            marginBottom: "1.5rem",
-            marginLeft: ".5rem"
-          }}>
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{
+              width: '90%', // Only takes up the space it needs
+              marginTop: '2rem',
+              marginBottom: '1.5rem',
+              marginLeft: '.5rem',
+            }}
+          >
             <Button
               onClick={() => {
                 navigate('/labs')
@@ -148,8 +151,7 @@ export default function Equipment() {
                             <strong>Video Card:</strong> {item?.videoCard}{' '}
                             <br />
                             <strong>Display:</strong> {item?.display} <br />
-                            <strong>Optical Drive:</strong> {item?.opticalDrive}{' '}
-                            <br />
+                            {/* <strong>Optical Drive:</strong> {item?.opticalDrive}{' '} */}
                             <strong>Casing:</strong> {item?.casing} <br />
                             <strong>Mouse:</strong> {item?.mouse} <br />
                             <strong>Keyboard:</strong> {item?.keyboard}
@@ -183,7 +185,28 @@ export default function Equipment() {
                             >
                               Edit
                             </Button>
-                            <Button onClick={() => {}} variant="contained"
+                          </Stack>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              {/* {loading && (
+                <div style={{ textAlign: 'center', padding: '10px' }}>
+                  <CircularProgress />
+                </div>
+              )} */}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </>
+  )
+}
+
+{
+  /* <Button onClick={() => {}} variant="contained"
                               sx={{
                                 backgroundColor: 'white',
                                 color: 'black',
@@ -224,23 +247,5 @@ export default function Equipment() {
                                 },
                               }}>
                               Change Location
-                            </Button>
-                          </Stack>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              {/* {loading && (
-                <div style={{ textAlign: 'center', padding: '10px' }}>
-                  <CircularProgress />
-                </div>
-              )} */}
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </>
-  )
+                            </Button> */
 }
