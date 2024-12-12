@@ -24,6 +24,17 @@ export default function Home() {
                 navigate('/login')
               }}
               variant="contained"
+              sx={{
+                backgroundColor: 'white',
+                color: 'black',
+                borderRadius: '20px', // Rounded borders
+                border: '1px solid #000', // Light gray border
+                padding: '3px 8px',
+                fontSize: '0.8rem',
+                '&:hover': {
+                  backgroundColor: '#f0f0f0', // Slightly darker white on hover
+                },
+              }}
             >
               Signout
             </Button>

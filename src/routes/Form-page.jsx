@@ -260,7 +260,18 @@ export default function Form() {
               </div>
             </div>
             <div className="flex justify-end">
-              <Button type="submit" variant="contained" className="w-full md:w-auto">
+              <Button type="submit" variant="contained" className="w-full md:w-auto"
+              sx={{
+                backgroundColor: 'white',
+                color: 'black',
+                borderRadius: '20px', // Rounded borders
+                border: '1px solid #000', // Light gray border
+                padding: '3px 12px',
+                fontSize: '0.9rem',
+                '&:hover': {
+                  backgroundColor: '#f0f0f0', // Slightly darker white on hover
+                },
+              }}>
                 ADD Equipment
               </Button>
             </div>

@@ -56,12 +56,29 @@ export default function Equipment() {
       <div className="flex min-h-[100vh] bg-[#e6e6e6]">
         <Sidebar />
         <div style={{ flexGrow: 1, padding: '1rem' }}>
-          <Stack gap={1}>
+          <Stack direction="row" spacing={2} 
+          sx={{ 
+            width: '90%', // Only takes up the space it needs
+            marginTop: "2rem",
+            marginBottom: "1.5rem",
+            marginLeft: ".5rem"
+          }}>
             <Button
               onClick={() => {
                 navigate('/labs')
               }}
               variant="contained"
+              sx={{
+                backgroundColor: 'white',
+                color: 'black',
+                borderRadius: '20px', // Rounded borders
+                border: '1px solid #000', // Light gray border
+                padding: '3px 8px',
+                fontSize: '0.7rem',
+                '&:hover': {
+                  backgroundColor: '#f0f0f0', // Slightly darker white on hover
+                },
+              }}
             >
               ALL
             </Button>
@@ -72,6 +89,17 @@ export default function Equipment() {
                   navigate(`/lab/${key}`)
                 }}
                 variant="contained"
+                sx={{
+                  backgroundColor: 'white',
+                  color: 'black',
+                  borderRadius: '20px', // Rounded borders
+                  border: '1px solid #000', // Light gray border
+                  padding: '3px 8px',
+                  fontSize: '0.75rem',
+                  '&:hover': {
+                    backgroundColor: '#f0f0f0', // Slightly darker white on hover
+                  },
+                }}
                 // style={{ margin: '5px' }} // Add some spacing for better layout
               >
                 {value}
@@ -81,7 +109,7 @@ export default function Equipment() {
           <Card
             style={{
               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-              margin: '1rem',
+              margin: '1.5rem 1rem 1rem 1.75rem',
               minHeight: '90vh',
             }}
           >
@@ -135,22 +163,66 @@ export default function Equipment() {
                         <TableCell align="center">{item?.campus}</TableCell>
                         <TableCell align="center">{item?.labTech}</TableCell>
                         <TableCell align="center">
-                          <Stack gap={0.75}>
+                          <Stack gap={2}>
                             <Button
                               onClick={() => {
                                 navigate(`/equipment/${item.id}`)
                               }}
                               variant="contained"
+                              sx={{
+                                backgroundColor: 'white',
+                                color: 'black',
+                                borderRadius: '20px', // Rounded borders
+                                border: '1px solid #000', // Light gray border
+                                padding: '5px 0px',
+                                fontSize: '0.80rem',
+                                '&:hover': {
+                                  backgroundColor: '#f0f0f0', // Slightly darker white on hover
+                                },
+                              }}
                             >
                               Edit
                             </Button>
-                            <Button onClick={() => {}} variant="contained">
+                            <Button onClick={() => {}} variant="contained"
+                              sx={{
+                                backgroundColor: 'white',
+                                color: 'black',
+                                borderRadius: '20px', // Rounded borders
+                                border: '1px solid #000', // Light gray border
+                                padding: '3px 5px',
+                                fontSize: '0.70rem',
+                                '&:hover': {
+                                  backgroundColor: '#f0f0f0', // Slightly darker white on hover
+                                },
+                              }}>
                               Change Status
                             </Button>
-                            <Button onClick={() => {}} variant="contained">
+                            <Button onClick={() => {}} variant="contained"
+                              sx={{
+                                backgroundColor: 'white',
+                                color: 'black',
+                                borderRadius: '20px', // Rounded borders
+                                border: '1px solid #000', // Light gray border
+                                padding: '3px 0px',
+                                fontSize: '0.70rem',
+                                '&:hover': {
+                                  backgroundColor: '#f0f0f0', // Slightly darker white on hover
+                                },
+                              }}>
                               Change Laboratory Technician
                             </Button>
-                            <Button onClick={() => {}} variant="contained">
+                            <Button onClick={() => {}} variant="contained"
+                              sx={{
+                                backgroundColor: 'white',
+                                color: 'black',
+                                borderRadius: '20px', // Rounded borders
+                                border: '1px solid #000', // Light gray border
+                                padding: '3px 4px',
+                                fontSize: '0.75rem',
+                                '&:hover': {
+                                  backgroundColor: '#f0f0f0', // Slightly darker white on hover
+                                },
+                              }}>
                               Change Location
                             </Button>
                           </Stack>
