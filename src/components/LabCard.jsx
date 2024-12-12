@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import {
   Box,
-  Button,
+  // Button,
   Card,
   CardActions,
   CardContent,
@@ -23,13 +23,16 @@ export default function LabCard({
         borderRadius: '8px',
         padding: 2,
         textAlign: 'center',
-      }}>
+      }}
+    >
       <CardContent>
         <Typography variant="h6">Laboratory {labNum}</Typography>
         <Typography
           sx={{
             marginBottom: 2,
-          }}>{labName}
+          }}
+        >
+          {labName}
         </Typography>
         <Stack direction="row" gap={4}>
           <Box>
@@ -43,14 +46,14 @@ export default function LabCard({
         </Stack>
       </CardContent>
       <CardActions>
-      <Box
+        <Box
           sx={{
             width: '100%',
             display: 'flex',
             justifyContent: 'flex-end',
           }}
         >
-          <Button
+          {/* <Button
             sx={{
             backgroundColor: 'white',
             color: 'black',
@@ -61,7 +64,7 @@ export default function LabCard({
             },
             }}>
               View in Table
-          </Button>
+          </Button> */}
         </Box>
       </CardActions>
     </Card>
