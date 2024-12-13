@@ -12,7 +12,7 @@ export default defineConfig(({ command }) =>{
   }
 
   if (command === 'deploy') {
-    config.base = '/adv-soft-eng/';
+    config.base = '/adv-soft-eng';
   }
 
   return config
