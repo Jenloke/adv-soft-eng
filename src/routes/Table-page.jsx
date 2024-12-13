@@ -68,7 +68,7 @@ export default function Equipment() {
           >
             <Button
               onClick={() => {
-                navigate('/labs')
+                navigate('/adv-soft-eng/labs')
               }}
               variant="contained"
               sx={{
@@ -89,7 +89,7 @@ export default function Equipment() {
               <Button
                 key={key}
                 onClick={() => {
-                  navigate(`/lab/${key}`)
+                  navigate(`/adv-soft-eng/lab/${key}`)
                 }}
                 variant="contained"
                 sx={{
@@ -168,7 +168,7 @@ export default function Equipment() {
                           <Stack gap={2}>
                             <Button
                               onClick={() => {
-                                navigate(`/equipment/${item.id}`)
+                                navigate(`/adv-soft-eng/equipment/${item.id}`)
                               }}
                               variant="contained"
                               sx={{

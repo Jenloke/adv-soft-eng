@@ -8,7 +8,7 @@ export default defineConfig(({ command }) =>{
     server: {
       host: true
     },
-    base: "/", 
+    base: '/adv-soft-eng/', 
   }
 
   if (command === 'deploy') {

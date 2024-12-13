@@ -33,20 +33,20 @@ export default function Sidebar() {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/" className="">
+            <NavLink exact to="/adv-soft-eng/" className="">
               <CDBSidebarMenuItem icon="home">Home</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/labs" className="">
+            <NavLink exact to="/adv-soft-eng/labs" className="">
               <CDBSidebarMenuItem icon="table">Tables</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/form" className="">
+            <NavLink exact to="/adv-soft-eng/form" className="">
               <CDBSidebarMenuItem icon="file">Forms</CDBSidebarMenuItem>
             </NavLink>
             <CDBSidebarMenuItem
               onClick={async () => {
                 const { error } = await supabase.auth.signOut()
                 if (error) console.log(error)
-                navigate('/login')
+                navigate('/adv-soft-eng/login')
               }}
               icon="lock"
             >

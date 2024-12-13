@@ -93,74 +93,74 @@ const getLabData = async () => {
 const router = createBrowserRouter(
   [
     {
-      path: '/',
+      path: '/adv-soft-eng/',
       element: <Home />,
       errorElement: <Error />,
       loader: async () => {
         const { data } = await supabase.auth.getSession()
         if (!data.session) {
-          return redirect('/login')
+          return redirect('/adv-soft-eng/login')
         }
         return getLabData()
       },
     },
     {
-      path: '/form',
+      path: '/adv-soft-eng/form',
       element: <Form />,
       loader: async () => {
         const { data } = await supabase.auth.getSession()
         if (!data.session) {
-          return redirect('/login')
+          return redirect('/adv-soft-eng/login')
         }
         return getFormOptions()
       },
     },
     {
-      path: '/labs',
+      path: '/adv-soft-eng/labs',
       element: <Equipment />,
       loader: async () => {
         const { data } = await supabase.auth.getSession()
         if (!data.session) {
-          return redirect('/login')
+          return redirect('/adv-soft-eng/login')
         }
         return getTableData()
       },
     },
     {
-      path: '/lab/:labID',
+      path: '/adv-soft-eng/lab/:labID',
       element: <Equipment />,
       loader: async ({ params }) => {
         const { data } = await supabase.auth.getSession()
         if (!data.session) {
-          return redirect('/login')
+          return redirect('/adv-soft-eng/login')
         }
         return getLabEquipments(params.labID)
       },
     },
     {
-      path: '/equipment/:id',
+      path: '/adv-soft-eng/equipment/:id',
       element: <EditEquipment />,
       loader: async ({ params }) => {
         const { data } = await supabase.auth.getSession()
         if (!data.session) {
-          return redirect('/login')
+          return redirect('/adv-soft-eng/login')
         }
         return getEquipmentData(params.id)
       },
     },
     {
-      path: '/login',
+      path: '/adv-soft-eng/login',
       element: <Login />,
       loader: async () => {
         const { data } = await supabase.auth.getSession()
         if (data.session) {
-          return redirect('/')
+          return redirect('/adv-soft-eng/')
         }
         return null
       },
     },
-  ],
-  { basename: import.meta.env.DEV ? '/' : '/adv-soft-eng' }
+  ]
+  // { basename: import.meta.env.DEV ? '/' : '/adv-soft-eng/' }
 )
 
 export default function App() {

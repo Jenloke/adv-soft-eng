@@ -1,5 +1,14 @@
 import { useState } from 'react'
-import { TextField, Button, Typography, Box, IconButton, InputAdornment, useMediaQuery, useTheme } from '@mui/material'
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+  IconButton,
+  InputAdornment,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 import { styled } from '@mui/material/styles'
 import backgroundImage from '../assets/homepage-webslider-1.jpg' // Your image path
 import Visibility from '@mui/icons-material/Visibility'
@@ -17,12 +26,12 @@ const StyledContainer = styled(Box)(() => ({
   flexDirection: 'column',
   justifyContent: 'center',
   backgroundColor: '#e8f4fa',
-  overflow: 'hidden'
+  overflow: 'hidden',
 }))
 
 // Left section with background image
 // const LeftSection = styled(Box)(({ theme }) => ({
-const LeftSection = styled(Box)(({ theme })=> ({
+const LeftSection = styled(Box)(({ theme }) => ({
   position: 'relative',
   '&::before': {
     content: '""',
@@ -67,10 +76,10 @@ const FormSection = styled(Box)(({ theme }) => ({
 }))
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
 
   const navigate = useNavigate()
   const theme = useTheme()
@@ -87,13 +96,13 @@ export default function LoginForm() {
     })
 
     if (error) {
-      console.log(error.message);
-      setPasswordError(true);
-      setPassword('');
+      console.log(error.message)
+      setPasswordError(true)
+      setPassword('')
     } else {
-      setPasswordError(false); 
-      console.log(data);
-      navigate('/');
+      setPasswordError(false)
+      console.log(data)
+      navigate('/adv-soft-eng/')
     }
   }
 
@@ -105,7 +114,7 @@ export default function LoginForm() {
         width="100%"
         height="100vh"
       >
-        <LeftSection/>
+        <LeftSection />
         <FormSection>
           <Box width="100%" maxWidth="400px">
             <Typography variant="h4" textAlign="center" gutterBottom>
@@ -130,7 +139,9 @@ export default function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 error={passwordError}
-                helperText={passwordError ? 'Incorrect password. Please try again.' : ''}
+                helperText={
+                  passwordError ? 'Incorrect password. Please try again.' : ''
+                }
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
