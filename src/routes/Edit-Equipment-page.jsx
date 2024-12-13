@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useLoaderData } from 'react-router-dom'
 import Sidebar from '../components/Sidebar'
 import dayjs from 'dayjs'
 
@@ -15,13 +15,15 @@ export default function EditEquipment() {
 
   return (
     <div className="flex h-screen bg-gray-100">
-        <Sidebar />
+      <Sidebar />
       <div className="flex flex-grow flex-col justify-center items-center">
         <div className="w-[80%] max-w-3xl bg-white border border-gray-300 rounded-lg shadow-lg p-6 mb-4">
           <h1 className="text-xl font-bold mb-4 text-center">Equipment</h1>
-          <div className="mb-4">Property Number: {equipmentData.propertyNumber}</div>
+          <div className="mb-4">
+            Property Number: {equipmentData.propertyNumber}
+          </div>
           <div className="mb-2">Category: {equipmentData.category}</div>
-          <div className="mb-2"> 
+          <div className="mb-2">
             <div>Processor: {equipmentData.processor}</div>
             <div>Motherboard: {equipmentData.motherboard}</div>
             <div>HDD: {equipmentData.hdd}</div>
@@ -42,11 +44,16 @@ export default function EditEquipment() {
           <div className="mb-2">Lab Technician: {equipmentData.labTech}</div>
         </div>
 
-        <Stack gap={2} direction="row"
+        <Stack
+          gap={2}
+          direction="row"
           sx={{
-            justifyContent: 'flex-end'
-          }}>
-          <Button onClick={() => {}} variant="contained"
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Button
+            onClick={() => {}}
+            variant="contained"
             sx={{
               backgroundColor: 'white',
               color: 'black',
@@ -57,10 +64,13 @@ export default function EditEquipment() {
               '&:hover': {
                 backgroundColor: '#f0f0f0', // Slightly darker white on hover
               },
-            }}>
+            }}
+          >
             Change Status
           </Button>
-          <Button onClick={() => {}} variant="contained"
+          <Button
+            onClick={() => {}}
+            variant="contained"
             sx={{
               backgroundColor: 'white',
               color: 'black',
@@ -71,10 +81,13 @@ export default function EditEquipment() {
               '&:hover': {
                 backgroundColor: '#f0f0f0', // Slightly darker white on hover
               },
-            }}>
+            }}
+          >
             Change Laboratory Technician
           </Button>
-          <Button onClick={() => {}} variant="contained"
+          <Button
+            onClick={() => {}}
+            variant="contained"
             sx={{
               backgroundColor: 'white',
               color: 'black',
@@ -85,7 +98,8 @@ export default function EditEquipment() {
               '&:hover': {
                 backgroundColor: '#f0f0f0', // Slightly darker white on hover
               },
-            }}>
+            }}
+          >
             Change Location
           </Button>
         </Stack>
