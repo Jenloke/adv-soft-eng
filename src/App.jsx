@@ -52,7 +52,7 @@ const getEquipmentData = async (id) => {
   try {
     // const { data, error } = await supabase
     const { data } = await supabase.from('Equipment').select('*').eq('id', id)
-    console.log(data)
+    // console.log(data)
     return data
   } catch (error) {
     console.error('Error fetching data: ', error)
@@ -81,7 +81,7 @@ const getLabData = async () => {
       return acc
     }, {})
 
-    console.log(counts)
+    // console.log(counts)
 
     return counts
   } catch (error) {
