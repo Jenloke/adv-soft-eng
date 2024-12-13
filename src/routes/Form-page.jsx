@@ -72,7 +72,7 @@ export default function Form() {
   // console.log(watch('laboratory')) // watch input value by passing the name of it
 
   const onSubmit = async (formInputs) => {
-    console.log(formInputs)
+    // console.log(formInputs)
     const submitInputs = {
       propertyNumber: formInputs.propertyNumber,
       category: formInputs.category,
@@ -96,8 +96,8 @@ export default function Form() {
     const { data, error } = await supabase
       .from('Equipment')
       .insert([{ ...submitInputs, status: 'Functional' }])
-    console.log(data)
-    console.log(error)
+    // console.log(data)
+    // console.log(error)
   }
 
   return (
