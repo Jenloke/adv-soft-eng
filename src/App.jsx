@@ -160,7 +160,7 @@ const router = createBrowserRouter(
       },
     },
   ],
-  { basename: import.meta.env.DEV ? '/' : '/adv-soft-eng/' }
+  { basename: import.meta.env.DEV ? '/' : '/adv-soft-eng' }
 )
 
 export default function App() {
