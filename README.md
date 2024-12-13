@@ -1,5 +1,7 @@
 # GLEAM: General Lab Equipment and Asset Management
 
+## [REPO LINK ](https://github.com/Jenloke/adv-soft-eng)
+
 ### Technologics
 
 GLEAM is a comprehensive web application designed to optimize and streamline the management of the CICS computer laboratories. It is equipped with powerful tools and features to help administrators maintain lab equipment, monitor system status, and ensure efficient resource utilization.
